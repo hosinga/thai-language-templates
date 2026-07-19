@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thai Templates — Level 3: Weather, Colors &amp; Describing Things</title>
+<style>
+  :root{
+    /* System fonts only — never add a Google Fonts / external @import link here. */
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-thai: 'Thonburi', 'Noto Sans Thai', 'Leelawadee UI', sans-serif;
+    --font-mono: 'SF Mono', ui-monospace, 'Menlo', 'Consolas', monospace;
+
+    /* PALETTE — "storm clearing" theme: slate sky, ochre sunbreak accent.
+       gold/jade/maroon/blue stay fixed — load-bearing for the tone legend. */
+    --bg-deep:#1e2530;
+    --bg-panel:#29323f;
+    --bg-panel-2:#2e3846;
+    --gold:#e6a838;
+    --marigold:#c98f52;
+    --jade:#4fa696;
+    --maroon:#a4483f;
+    --blue:#5b93c0;
+    --cream:#eef1ea;
+    --muted:#8b98a5;
+    --line:#39434f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-deep);
+    background-image:
+      radial-gradient(circle at 15% 6%, rgba(201,143,82,0.12), transparent 40%),
+      radial-gradient(circle at 85% 12%, rgba(79,166,150,0.12), transparent 45%);
+    color:var(--cream);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px 60px;}
+
+  .hero{padding:44px 18px 30px;text-align:center;position:relative;}
+  .lantern-row{display:flex;justify-content:center;gap:14px;margin-bottom:22px;}
+  .lantern-row span{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px 2px rgba(230,168,56,0.55);}
+  .lantern-row span:nth-child(3n+2){background:var(--jade);box-shadow:0 0 8px 2px rgba(79,166,150,0.5);}
+  .lantern-row span:nth-child(4n+1){background:var(--marigold);box-shadow:0 0 8px 2px rgba(201,143,82,0.55);}
+
+  .eyebrow{font-family:var(--font-mono);font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--jade);margin-bottom:14px;}
+  h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,8vw,42px);margin:0 0 10px;color:var(--cream);}
+  .hero p{color:var(--muted);max-width:480px;margin:0 auto;font-size:15.5px;}
+
+  .price-tag{
+    margin:34px auto 6px;max-width:360px;
+    background:var(--marigold);color:#241608;
+    border-radius:4px;padding:20px 22px 22px;position:relative;
+    transform:rotate(-2deg);box-shadow:0 14px 26px -10px rgba(0,0,0,0.55);
+    font-family:var(--font-mono);
+  }
+  .price-tag::before{content:"";position:absolute;top:-26px;left:50%;width:2px;height:26px;background:var(--muted);transform:translateX(-50%);}
+  .price-tag::after{content:"";position:absolute;top:-30px;left:50%;width:9px;height:9px;border-radius:50%;border:2px solid var(--gold);background:var(--bg-deep);transform:translateX(-50%);}
+  .price-tag .big{font-family:var(--font-display);font-weight:700;font-size:26px;display:block;}
+  .price-tag .sub{font-size:12.5px;opacity:0.8;margin-top:6px;display:block;}
+  .price-tag .thai{font-family:var(--font-thai);font-size:15px;margin-top:8px;display:block;}
+
+  .divider{display:flex;align-items:center;gap:10px;margin:52px 0 18px;}
+  .divider .dots{display:flex;gap:6px;}
+  .divider .dots span{width:4px;height:4px;border-radius:50%;background:var(--line);}
+  .divider .dots span.on{background:var(--gold);}
+
+  .section-head{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+  .section-head svg{flex:none;width:26px;height:26px;stroke:var(--gold);}
+  .section-head h2{font-family:var(--font-display);font-size:22px;font-weight:600;margin:0;color:var(--cream);}
+  .section-note{color:var(--muted);font-size:13.5px;margin:2px 0 18px;padding-left:38px;}
+
+  .legend{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:16px 16px 14px;margin:18px 0 8px;}
+  .legend-title{font-family:var(--font-mono);font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+  .legend-items{display:flex;flex-wrap:wrap;gap:10px 16px;}
+  .legend-item{display:flex;align-items:center;gap:7px;font-size:13px;}
+  .swatch{width:9px;height:9px;border-radius:50%;flex:none;}
+  .t-mid .swatch,.tone-mid{background:var(--muted);}
+  .t-low .swatch,.tone-low{color:var(--blue);}
+  .t-falling .swatch,.tone-falling{color:var(--maroon);}
+  .t-high .swatch,.tone-high{color:var(--gold);}
+  .t-rising .swatch,.tone-rising{color:var(--jade);}
+  .t-low .swatch{background:var(--blue);}
+  .t-falling .swatch{background:var(--maroon);}
+  .t-high .swatch{background:var(--gold);}
+  .t-rising .swatch{background:var(--jade);}
+
+  table{width:100%;border-collapse:collapse;background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  thead th{text-align:left;font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:var(--bg-panel-2);padding:10px 12px;font-weight:600;}
+  tbody td{padding:12px;border-top:1px solid var(--line);font-size:14.5px;vertical-align:top;}
+  td.thai{font-family:var(--font-thai);font-size:16px;white-space:nowrap;}
+  .play-btn{background:none;border:none;cursor:pointer;font-size:13px;padding:2px 4px;margin-left:4px;opacity:0.65;filter:grayscale(0.3);vertical-align:middle;}
+  .play-btn:hover{opacity:1;}
+  .play-btn.speaking{opacity:1;animation:pulse 0.7s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
+  .audio-note{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);margin:10px 0 0;padding-left:2px;}
+  td.translit{font-family:var(--font-mono);font-size:14px;font-weight:500;}
+  td.meaning{color:var(--muted);}
+  tbody tr:hover td{background:rgba(201,143,82,0.06);}
+
+  /* color dot preceding thai colour names */
+  .cdot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:middle;border:1px solid rgba(255,255,255,0.25);}
+
+  .callout{margin:18px 0 0;background:linear-gradient(135deg, rgba(164,72,63,0.18), rgba(41,50,63,0.4));border:1px solid var(--maroon);border-radius:10px;padding:16px 16px 14px;}
+  .callout .flag{font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--maroon);margin-bottom:6px;font-weight:600;}
+  .callout p{margin:4px 0;font-size:14.5px;}
+  .callout .example{font-family:var(--font-mono);color:var(--marigold);font-size:14px;margin-top:8px;}
+
+  .steps{list-style:none;margin:16px 0 0;padding:0;counter-reset:step;}
+  .steps li{counter-increment:step;display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);font-size:14.5px;}
+  .steps li:first-child{border-top:none;}
+  .steps li::before{content:counter(step);font-family:var(--font-display);font-weight:700;color:var(--gold);font-size:18px;flex:none;width:26px;}
+
+  .suite-nav{text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-top:10px;}
+  .suite-nav a{color:var(--jade);text-decoration:none;}
+  .suite-nav a:hover{text-decoration:underline;}
+
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:56px;font-family:var(--font-mono);}
+
+  @media (max-width:480px){
+    thead{display:none;}
+    table,tbody,tr,td{display:block;width:100%;}
+    tbody tr{border-top:1px solid var(--line);padding:12px 12px 10px;}
+    tbody td{border-top:none;padding:2px 0;}
+    td.thai{font-size:17px;}
+    td.meaning{font-size:13px;margin-top:2px;}
+    td.meaning::before{content:"→ ";color:var(--line);}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="lantern-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="eyebrow">Level 3 of 12 &middot; Templates, not grammar</div>
+    <h1>Weather, Colors &amp; Describing Things</h1>
+    <p>Talk about the sky, name what you see, and describe anything with a small set of adjective templates.</p>
+
+    <div class="price-tag">
+      <span class="sub">the shade modifier goes after the colour</span>
+      <span class="big">สีฟ้าอ่อน = light blue</span>
+      <span class="thai">sǐi-fáa-àwn — not "àwn sǐi-fáa"</span>
+      <span class="sub">colour first, then อ่อน (light) or เข้ม (dark)</span>
+    </div>
+    <p class="audio-note">🔊 next to a word plays your device's Thai text-to-speech — synthesized, not a native recording, so quality depends on your phone.</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-title">Tone colour key — used on every word below</div>
+    <div class="legend-items">
+      <div class="legend-item t-mid"><span class="swatch"></span>mid — flat</div>
+      <div class="legend-item t-low"><span class="swatch"></span>low — low &amp; flat</div>
+      <div class="legend-item t-falling"><span class="swatch"></span>falling — high&nbsp;→&nbsp;low</div>
+      <div class="legend-item t-high"><span class="swatch"></span>high — sharp &amp; high</div>
+      <div class="legend-item t-rising"><span class="swatch"></span>rising — low&nbsp;→&nbsp;high</div>
+    </div>
+  </div>
+
+  <!-- ===================== WEATHER ===================== -->
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16a4 4 0 0 1 .5-8 5 5 0 0 1 9.5 1.5A3.5 3.5 0 0 1 17 16H7z"/><path d="M9 19v1M12 19v2M15 19v1"/></svg>
+    <h2>The weather</h2>
+  </div>
+  <p class="section-note">Enough to open small talk anywhere — Thai weather chat leans hard on hot/rain/wind.</p>
+  <table>
+    <thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead>
+    <tbody id="tbl-weather"></tbody>
+  </table>
+
+  <!-- ===================== COLORS ===================== -->
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.7 1.5-1.5s-.4-1-.4-1.6c0-.8.7-1.4 1.5-1.4H16a4 4 0 0 0 4-4c0-5-3.6-9.5-8-9.5z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="8" r="1"/></svg>
+    <h2>Colours</h2>
+  </div>
+  <p class="section-note">Every colour follows <b>sǐi</b> (colour) — same shared-prefix trick as the days of the week.</p>
+  <table>
+    <thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead>
+    <tbody id="tbl-colors"></tbody>
+  </table>
+
+  <!-- ===================== DESCRIBING THINGS ===================== -->
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5L20 20"/></svg>
+    <h2>Describing things</h2>
+  </div>
+  <p class="section-note">Thai adjectives sit straight after the noun — no "is" needed: "bâan yài" = "house big" = "the house is big."</p>
+  <table>
+    <thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead>
+    <tbody id="tbl-describe"></tbody>
+  </table>
+
+  <!-- ===================== PRACTICE METHOD ===================== -->
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+    <h2>How to drill this</h2>
+  </div>
+  <ol class="steps">
+    <li>Describe today's actual weather out loud each morning — real conditions stick better than a random drill.</li>
+    <li>Point at five objects near you right now and say their colour using "sǐi ___," then add อ่อน/เข้ม to shade it.</li>
+    <li>Take one adjective a day and attach it to three different nouns — "yài" works on a house, a dog, a problem.</li>
+  </ol>
+
+  <p class="suite-nav">Thai Templates Suite &middot; Level 3 of 12</p>
+
+  <footer>ฟ้าใสวันนี้ — clear skies today</footer>
+</div>
+
+<script>
+const TONE_MARKS = {
+  'à':'low','è':'low','ì':'low','ò':'low','ù':'low',
+  'á':'high','é':'high','í':'high','ó':'high','ú':'high',
+  'â':'falling','ê':'falling','î':'falling','ô':'falling','û':'falling',
+  'ǎ':'rising','ě':'rising','ǐ':'rising','ǒ':'rising','ǔ':'rising'
+};
+
+function colorTranslit(text){
+  return text.split('').map(ch=>{
+    const lower = ch.toLowerCase();
+    if(TONE_MARKS[lower]){
+      return `<span class="tone-${TONE_MARKS[lower]}">${ch}</span>`;
+    }
+    return ch;
+  }).join('');
+}
+
+let thaiVoice = null;
+function pickVoice(){
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  thaiVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('th')) || null;
+}
+if(window.speechSynthesis){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+}
+function speak(thaiText, btn){
+  if(!window.speechSynthesis){ return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(thaiText);
+  u.lang = 'th-TH';
+  if(thaiVoice) u.voice = thaiVoice;
+  u.rate = 0.85;
+  if(btn){ btn.classList.add('speaking'); u.onend = ()=>btn.classList.remove('speaking'); u.onerror = ()=>btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+window.speak = speak;
+
+function renderRows(targetId, rows, cols){
+  const tbody = document.getElementById(targetId);
+  tbody.innerHTML = rows.map(r=>{
+    const safeThai = r[0].replace(/'/g,"\\'");
+    return `<tr>
+      <td class="thai" data-label="Thai">${r[0]} <button class="play-btn" onclick="speak('${safeThai}', this)" aria-label="Play audio" title="Play (device text-to-speech)">🔊</button></td>
+      <td class="translit" data-label="Say it">${colorTranslit(r[1])}</td>
+      <td class="meaning" data-label="${cols}">${r[2]}</td>
+    </tr>`;
+  }).join('');
+}
+
+const weather = [
+  ["อากาศเป็นอย่างไร","aa-gàat bpen yàang-rai","how's the weather?"],
+  ["ฝนตก","fǒn dtòk","it's raining"],
+  ["พรุ่งนี้ฝนจะตกไหม","prûng-níi fǒn jà dtòk mǎi","will it rain tomorrow?"],
+  ["แดดออก","dàet àwk","it's sunny"],
+  ["ร้อนมาก","ráwn mâak","it's very hot"],
+  ["หนาว","nǎao","cold"],
+  ["ลมแรง","lom raeng","windy"],
+];
+renderRows('tbl-weather', weather, 'Meaning');
+
+const colorSwatch = {
+  "แดง":"#c1443b","ส้ม":"#d8843a","เหลือง":"#d8b93a","เขียว":"#4fa696",
+  "ฟ้า":"#5b93c0","น้ำเงิน":"#3f5f95","ม่วง":"#8b6aa8","ดำ":"#2b2b2b",
+  "ขาว":"#f3efe4","เทา":"#9aa0a6","ทอง":"#c9a24a","เงิน":"#b9bec2"
+};
+const colors = [
+  ["สีแดง","sǐi daeng","red"],
+  ["สีส้ม","sǐi sôm","orange"],
+  ["สีเหลือง","sǐi lěuang","yellow"],
+  ["สีเขียว","sǐi kǐao","green"],
+  ["สีฟ้า","sǐi fáa","blue (sky)"],
+  ["สีน้ำเงิน","sǐi náam-ngern","blue (dark/navy)"],
+  ["สีม่วง","sǐi mûang","purple"],
+  ["สีดำ","sǐi dam","black"],
+  ["สีขาว","sǐi kǎao","white"],
+  ["สีเทา","sǐi tao","gray"],
+  ["สีทอง","sǐi tawng","gold"],
+  ["สีเงิน","sǐi ngern","silver"],
+  ["___อ่อน","___ àwn","light ___ (add after a colour)"],
+  ["___เข้ม","___ kêm","dark ___ (add after a colour)"],
+];
+function dotFor(thai){
+  for(const key in colorSwatch){ if(thai.indexOf(key) !== -1) return colorSwatch[key]; }
+  return null;
+}
+const tbodyColors = document.getElementById('tbl-colors');
+tbodyColors.innerHTML = colors.map(r=>{
+  const safeThai = r[0].replace(/'/g,"\\'");
+  const dot = dotFor(r[0]);
+  const dotHtml = dot ? `<span class="cdot" style="background:${dot}"></span>` : '';
+  return `<tr>
+    <td class="thai" data-label="Thai">${dotHtml}${r[0]} <button class="play-btn" onclick="speak('${safeThai}', this)" aria-label="Play audio" title="Play (device text-to-speech)">🔊</button></td>
+    <td class="translit" data-label="Say it">${colorTranslit(r[1])}</td>
+    <td class="meaning" data-label="Meaning">${r[2]}</td>
+  </tr>`;
+}).join('');
+
+const describe = [
+  ["ใหญ่ / เล็ก","yài / lék","big / small"],
+  ["สวย","sǔai","pretty / beautiful"],
+  ["น่ารัก","nâa-rák","cute"],
+  ["ใหม่ / เก่า","mài / gào","new / old"],
+  ["ดี / ไม่ดี","dii / mâi dii","good / not good"],
+  ["___มากไป","___ mâak bpai","too ___"],
+  ["___กว่า","___ gwàa","more ___ / ___-er"],
+];
+renderRows('tbl-describe', describe, 'Meaning');
+</script>
+</body>
+</html>
