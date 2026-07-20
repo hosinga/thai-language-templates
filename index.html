@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thai Templates Suite</title>
+<title>Thai Templates Suite — All Levels</title>
 <style>
   :root{
     --font-display: Georgia, 'Times New Roman', serif;
@@ -11,229 +11,846 @@
     --font-thai: 'Thonburi', 'Noto Sans Thai', 'Leelawadee UI', sans-serif;
     --font-mono: 'SF Mono', ui-monospace, 'Menlo', 'Consolas', monospace;
 
-    --bg-deep:#1b1720;
-    --bg-panel:#26212e;
-    --bg-panel-2:#2b2534;
-    --gold:#e6a838;
-    --cream:#f2ecdf;
-    --muted:#9c93a6;
-    --line:#3a3342;
+    --bg-deep:#132225; --bg-panel:#1c3238; --bg-panel-2:#20383e;
+    --marigold:#f2c14e; --cream:#f6efe0; --muted:#93a8a5; --line:#2c474d;
+    --gold:#e6a838; --jade:#4fa696; --maroon:#a4483f; --blue:#5b93c0;
   }
+  :root[data-level="1"]{ --bg-deep:#2a1e2d; --bg-panel:#392a3c; --bg-panel-2:#402f44; --marigold:#ec8c69; --cream:#f8ecdd; --muted:#ac93a5; --line:#4c3a4a; }
+  :root[data-level="2"]{ --bg-deep:#181c30; --bg-panel:#222848; --bg-panel-2:#262d51; --marigold:#d9a15b; --cream:#eee8da; --muted:#8d92b5; --line:#303867; }
+  :root[data-level="3"]{ --bg-deep:#1e2530; --bg-panel:#29323f; --bg-panel-2:#2e3846; --marigold:#c98f52; --cream:#eef1ea; --muted:#8b98a5; --line:#39434f; }
+  :root[data-level="4"]{ --bg-deep:#1c2b26; --bg-panel:#253830; --bg-panel-2:#2a3f36; --marigold:#c96a4a; --cream:#f1ede1; --muted:#93a89c; --line:#33473d; }
+  :root[data-level="5"]{ --bg-deep:#12172b; --bg-panel:#1b2140; --bg-panel-2:#1f2748; --marigold:#e8608f; --cream:#eef0fa; --muted:#8891b8; --line:#272f57; }
+  :root[data-level="6"]{ --bg-deep:#241d1a; --bg-panel:#332821; --bg-panel-2:#3a2e26; --marigold:#b97fb0; --cream:#f3ecdf; --muted:#a89486; --line:#4a3c33; }
+  :root[data-level="7"]{ --bg-deep:#1a1512; --bg-panel:#262019; --bg-panel-2:#2c2419; --marigold:#d9542f; --cream:#f2ead9; --muted:#a8988a; --line:#3a3025; }
+  :root[data-level="8"]{ --bg-deep:#241417; --bg-panel:#331e22; --bg-panel-2:#3a2327; --marigold:#a68a3c; --cream:#f2e9da; --muted:#ab9291; --line:#452a2e; }
+  :root[data-level="9"]{ --bg-deep:#1e1b2e; --bg-panel:#292540; --bg-panel-2:#2e2947; --marigold:#e0a054; --cream:#f0ecf5; --muted:#9691b3; --line:#3a3560; }
+  :root[data-level="10"]{ --bg-deep:#17171f; --bg-panel:#211f2c; --bg-panel-2:#262332; --marigold:#8b5fbf; --cream:#eeeaf2; --muted:#8f8a9e; --line:#332f42; }
+  :root[data-level="11"]{ --bg-deep:#201a2e; --bg-panel:#2b2340; --bg-panel-2:#302748; --marigold:#e2905c; --cream:#f5ecdf; --muted:#9c8fac; --line:#3d3255; }
+
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
-    margin:0;
-    background:var(--bg-deep);
-    background-image:
-      radial-gradient(circle at 12% 4%, rgba(230,168,56,0.10), transparent 38%),
-      radial-gradient(circle at 88% 10%, rgba(79,166,150,0.08), transparent 42%);
-    color:var(--cream);
-    font-family:var(--font-body);
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
+    margin:0;background:var(--bg-deep);color:var(--cream);
+    font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;
+    transition:background-color .25s;
   }
-  .wrap{max-width:640px;margin:0 auto;padding:0 18px 70px;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px 60px;}
 
-  .hero{padding:48px 18px 26px;text-align:center;}
-  .lantern-row{display:flex;justify-content:center;gap:9px;margin-bottom:22px;}
-  .lantern-row span{width:6px;height:6px;border-radius:50%;box-shadow:0 0 8px 2px currentColor;}
-  .eyebrow{
-    font-family:var(--font-mono);font-size:12.5px;letter-spacing:0.14em;
-    text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  /* ---------- Nav ---------- */
+  .level-nav{
+    position:sticky;top:0;z-index:10;
+    background:var(--bg-panel);border-bottom:1px solid var(--line);
+    overflow-x:auto;white-space:nowrap;padding:10px 12px;
+    -webkit-overflow-scrolling:touch;
   }
-  h1{
-    font-family:var(--font-display);font-weight:700;
-    font-size:clamp(32px,8vw,46px);margin:0 0 12px;color:var(--cream);
-    text-wrap:balance;
+  .level-nav::-webkit-scrollbar{display:none;}
+  .level-nav button{
+    font-family:var(--font-mono);font-size:12px;
+    background:var(--bg-panel-2);color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;
+    padding:7px 12px;margin-right:7px;cursor:pointer;
   }
-  .hero p{color:var(--muted);max-width:460px;margin:0 auto;font-size:15.5px;}
-
-  .how{
-    background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;
-    padding:16px 18px;margin:30px 0 40px;font-size:14px;color:var(--muted);
-  }
-  .how b{color:var(--cream);}
-
-  .rail{
-    list-style:none;margin:0;padding:0;
-    position:relative;
-  }
-  .rail::before{
-    content:"";position:absolute;left:23px;top:6px;bottom:6px;width:1px;
-    background:var(--line);
-  }
-  .level{
-    display:flex;gap:16px;align-items:flex-start;
-    padding:14px 0;position:relative;
-  }
-  .level .num{
-    flex:none;width:46px;height:46px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--font-display);font-weight:700;font-size:17px;
-    color:#1a1420;background:var(--swatch);
-    box-shadow:0 4px 14px -4px rgba(0,0,0,0.5);
-    position:relative;z-index:1;
-  }
-  .level a{
-    display:block;flex:1;text-decoration:none;color:inherit;
-    background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;
-    padding:13px 16px;transition:border-color .15s, background .15s;
-  }
-  .level a:hover{border-color:var(--swatch);background:var(--bg-panel-2);}
-  .level .title{
-    font-family:var(--font-display);font-size:17px;font-weight:600;
-    color:var(--cream);margin:0 0 3px;
-  }
-  .level .desc{font-size:13px;color:var(--muted);}
-  .level .arrow{
-    font-family:var(--font-mono);font-size:12px;color:var(--swatch);
-    float:right;margin-left:10px;
+  .level-nav button.active{
+    background:var(--marigold);color:#160f08;border-color:var(--marigold);
+    font-weight:600;
   }
 
-  footer{
-    text-align:center;color:var(--muted);font-size:12.5px;
-    margin-top:52px;font-family:var(--font-mono);
+  .global-legend{
+    background:var(--bg-panel);border-bottom:1px solid var(--line);
+    padding:14px 18px;
+  }
+  .global-legend .legend-title{
+    font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:8px;
+  }
+  .legend-items{display:flex;flex-wrap:wrap;gap:8px 14px;max-width:720px;margin:0 auto;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12.5px;}
+  .swatch{width:9px;height:9px;border-radius:50%;flex:none;}
+  .t-mid .swatch,.tone-mid{background:var(--muted);}
+  .t-low .swatch,.tone-low{color:var(--blue);}
+  .t-falling .swatch,.tone-falling{color:var(--maroon);}
+  .t-high .swatch,.tone-high{color:var(--gold);}
+  .t-rising .swatch,.tone-rising{color:var(--jade);}
+  .t-low .swatch{background:var(--blue);}
+  .t-falling .swatch{background:var(--maroon);}
+  .t-high .swatch{background:var(--gold);}
+  .t-rising .swatch{background:var(--jade);}
+  .audio-note-global{
+    font-family:var(--font-mono);font-size:11px;color:var(--muted);
+    text-align:center;padding:8px 18px 2px;max-width:720px;margin:0 auto;
+  }
+
+  .level-panel[hidden]{display:none;}
+
+  .hero{padding:34px 18px 24px;text-align:center;position:relative;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--jade);margin-bottom:12px;}
+  h1{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,7vw,40px);margin:0 0 10px;color:var(--cream);}
+  .hero p{color:var(--muted);max-width:480px;margin:0 auto;font-size:15px;}
+
+  .price-tag{
+    margin:28px auto 6px;max-width:340px;background:var(--marigold);color:#1a1006;
+    border-radius:4px;padding:18px 20px 20px;position:relative;transform:rotate(-2deg);
+    box-shadow:0 14px 26px -10px rgba(0,0,0,0.55);font-family:var(--font-mono);
+  }
+  .price-tag::before{content:"";position:absolute;top:-24px;left:50%;width:2px;height:24px;background:var(--muted);transform:translateX(-50%);}
+  .price-tag::after{content:"";position:absolute;top:-28px;left:50%;width:9px;height:9px;border-radius:50%;border:2px solid var(--gold);background:var(--bg-deep);transform:translateX(-50%);}
+  .price-tag .big{font-family:var(--font-display);font-weight:700;font-size:24px;display:block;}
+  .price-tag .sub{font-size:12px;opacity:0.85;margin-top:5px;display:block;}
+  .price-tag .thai{font-family:var(--font-thai);font-size:14px;margin-top:7px;display:block;}
+
+  .divider{display:flex;align-items:center;gap:10px;margin:44px 0 16px;}
+  .divider .dots{display:flex;gap:6px;}
+  .divider .dots span{width:4px;height:4px;border-radius:50%;background:var(--line);}
+  .divider .dots span.on{background:var(--gold);}
+
+  .section-head{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+  .section-head svg{flex:none;width:24px;height:24px;stroke:var(--gold);}
+  .section-head h2{font-family:var(--font-display);font-size:20px;font-weight:600;margin:0;color:var(--cream);}
+  .section-note{color:var(--muted);font-size:13px;margin:2px 0 16px;padding-left:36px;}
+
+  table{width:100%;border-collapse:collapse;background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  thead th{text-align:left;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:var(--bg-panel-2);padding:9px 11px;font-weight:600;}
+  tbody td{padding:11px;border-top:1px solid var(--line);font-size:14px;vertical-align:top;}
+  td.thai{font-family:var(--font-thai);font-size:15.5px;white-space:nowrap;}
+  .play-btn{background:none;border:none;cursor:pointer;font-size:13px;padding:2px 4px;margin-left:4px;opacity:0.65;filter:grayscale(0.3);vertical-align:middle;}
+  .play-btn:hover{opacity:1;}
+  .play-btn.speaking{opacity:1;animation:pulse 0.7s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
+  td.translit{font-family:var(--font-mono);font-size:13.5px;font-weight:500;}
+  td.meaning{color:var(--muted);}
+  tbody tr:hover td{background:rgba(255,255,255,0.03);}
+
+  .cdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle;border:1px solid rgba(255,255,255,0.25);}
+
+  .callout{margin:16px 0 0;background:linear-gradient(135deg, rgba(164,72,63,0.2), rgba(0,0,0,0.2));border:1px solid var(--maroon);border-radius:10px;padding:15px 15px 13px;}
+  .callout .flag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--maroon);margin-bottom:6px;font-weight:600;}
+  .callout p{margin:4px 0;font-size:14px;}
+  .callout .example{font-family:var(--font-mono);color:var(--marigold);font-size:13.5px;margin-top:8px;line-height:1.6;}
+
+  .badge-row,.emergency-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .badge{background:var(--bg-panel);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;display:flex;align-items:center;gap:8px;}
+  .badge b{font-family:var(--font-mono);color:var(--marigold);}
+  .ebadge{background:rgba(164,72,63,0.16);border:1px solid var(--maroon);border-radius:10px;padding:11px 13px;font-size:13.5px;flex:1 1 220px;display:flex;flex-direction:column;gap:4px;}
+  .ebadge .th{font-family:var(--font-thai);font-size:15.5px;}
+  .ebadge .tr{font-family:var(--font-mono);font-size:12.5px;color:var(--marigold);}
+  .ebadge .en{color:var(--muted);font-size:12px;}
+
+  .steps{list-style:none;margin:16px 0 0;padding:0;counter-reset:step;}
+  .steps li{counter-increment:step;display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:14px;}
+  .steps li:first-child{border-top:none;}
+  .steps li::before{content:counter(step);font-family:var(--font-display);font-weight:700;color:var(--gold);font-size:17px;flex:none;width:24px;}
+
+  .panel-footer{text-align:center;color:var(--muted);font-size:12px;margin-top:48px;font-family:var(--font-mono);}
+
+  @media (max-width:480px){
+    thead{display:none;}
+    table,tbody,tr,td{display:block;width:100%;}
+    tbody tr{border-top:1px solid var(--line);padding:11px 12px 9px;}
+    tbody td{border-top:none;padding:2px 0;}
+    td.thai{font-size:16px;}
+    td.meaning{font-size:12.5px;margin-top:2px;}
+    td.meaning::before{content:"→ ";color:var(--line);}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
 
+<nav class="level-nav" id="levelNav">
+  <button data-goto="0">0 Basics</button>
+  <button data-goto="1">1 Greet</button>
+  <button data-goto="2">2 Time</button>
+  <button data-goto="3">3 Weather</button>
+  <button data-goto="4">4 Body</button>
+  <button data-goto="5">5 Transit</button>
+  <button data-goto="6">6 Hotel</button>
+  <button data-goto="7">7 Food</button>
+  <button data-goto="8">8 Money</button>
+  <button data-goto="9">9 Talk</button>
+  <button data-goto="10">10 Verbs</button>
+  <button data-goto="11">11 Routine</button>
+</nav>
+
+<div class="global-legend">
+  <div class="legend-title">Tone colour key — used on every word on this page</div>
+  <div class="legend-items">
+    <div class="legend-item t-mid"><span class="swatch"></span>mid — flat</div>
+    <div class="legend-item t-low"><span class="swatch"></span>low — low &amp; flat</div>
+    <div class="legend-item t-falling"><span class="swatch"></span>falling — high&nbsp;→&nbsp;low</div>
+    <div class="legend-item t-high"><span class="swatch"></span>high — sharp &amp; high</div>
+    <div class="legend-item t-rising"><span class="swatch"></span>rising — low&nbsp;→&nbsp;high</div>
+  </div>
+</div>
+<p class="audio-note-global">🔊 plays your device's Thai text-to-speech — synthesized, not a native recording. Needs a Thai voice installed (Settings → Accessibility → Spoken Content → Voices) and must be opened in Safari, not a file preview.</p>
+
+<!-- ============================================================ LEVEL 0 -->
+<section class="level-panel" data-level="0">
+<div class="wrap">
   <div class="hero">
-    <div class="lantern-row">
-      <span style="background:#e6a838;color:#e6a838;"></span>
-      <span style="background:#ec8c69;color:#ec8c69;"></span>
-      <span style="background:#d9a15b;color:#d9a15b;"></span>
-      <span style="background:#c98f52;color:#c98f52;"></span>
-      <span style="background:#c96a4a;color:#c96a4a;"></span>
-      <span style="background:#e8608f;color:#e8608f;"></span>
-      <span style="background:#b97fb0;color:#b97fb0;"></span>
-      <span style="background:#d9542f;color:#d9542f;"></span>
-      <span style="background:#a68a3c;color:#a68a3c;"></span>
-      <span style="background:#e0a054;color:#e0a054;"></span>
-      <span style="background:#8b5fbf;color:#8b5fbf;"></span>
-      <span style="background:#e2905c;color:#e2905c;"></span>
+    <div class="eyebrow">Level 0 of 12</div>
+    <h1>Survival Basics</h1>
+    <p>A handful of fill-in-the-blank patterns, the numbers to shop with, and the tones colour-coded so you can hear them on the page.</p>
+    <div class="price-tag">
+      <span class="sub">the one number that breaks the pattern</span>
+      <span class="big">10,000 = mèun</span>
+      <span class="thai">หมื่น</span>
+      <span class="sub">not "ten-thousand" — its own word</span>
     </div>
-    <div class="eyebrow">Twelve levels &middot; templates, not grammar</div>
-    <h1>Thai Templates Suite</h1>
-    <p>A fill-in-the-blank path through Thai, one topic at a time — every page uses the same tone-colour key and device text-to-speech, so the mechanics stay familiar even as the subject changes.</p>
   </div>
 
-  <div class="how"><b>How to use this:</b> work roughly in order the first time through — later levels (verbs, daily routine) lean on vocabulary from earlier ones. After that, jump to whichever topic you need.</div>
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg><h2>Numbers — learn these first</h2></div>
+  <p class="section-note">Everything else, prices, bargaining, phone numbers, depends on this table.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Value</th></tr></thead><tbody id="tbl-numbers"></tbody></table>
+  <div class="callout"><div class="flag">⚠ the mèun trap</div><p>English builds big numbers as "ten-thousand." Thai has a dedicated word for 10,000 — <b>หมื่น / mèun</b> — so 25,000 baht is built as 2×10,000 + 5×1,000, not "twenty-five thousand."</p><div class="example" id="example-calc"></div></div>
 
-  <ol class="rail">
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 4 0 0 0 16 0"/><path d="M4 9h16v2a8 4 0 0 1-16 0z"/><path d="M12 3v4"/></svg><h2>Ordering food &amp; drink</h2></div>
+  <p class="section-note">Master <b>kǎw ___</b> and you can order almost anything.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-food"></tbody></table>
 
-    <li class="level">
-      <span class="num" style="--swatch:#e6a838;">0</span>
-      <a href="https://claude.ai/code/artifact/b47c2c6d-ed7c-4785-957a-4d21e113eb62">
-        <span class="arrow">→</span>
-        <div class="title">Survival Basics</div>
-        <div class="desc">Numbers, ordering food, shopping, directions, politeness particles</div>
-      </a>
-    </li>
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><h2>Shopping &amp; bargaining</h2></div>
+  <p class="section-note">Pair with the numbers above to haggle for real.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-shop"></tbody></table>
 
-    <li class="level">
-      <span class="num" style="--swatch:#ec8c69;">1</span>
-      <a href="https://claude.ai/code/artifact/cf507ba7-af03-4816-a4db-65d5787372b1">
-        <span class="arrow">→</span>
-        <div class="title">Greetings &amp; First Words</div>
-        <div class="desc">Hello, how are you, introducing yourself, understanding Thai</div>
-      </a>
-    </li>
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6z"/></svg><h2>Directions</h2></div>
+  <p class="section-note">"Yùu tîi-nǎi" (where is) does most of the work.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-dir"></tbody></table>
 
-    <li class="level">
-      <span class="num" style="--swatch:#d9a15b;">2</span>
-      <a href="https://claude.ai/code/artifact/e0427273-07e9-4e0d-821f-1e17bcc4bdca">
-        <span class="arrow">→</span>
-        <div class="title">Time &amp; Calendar</div>
-        <div class="desc">Days, months, dates, telling time, parts of the day</div>
-      </a>
-    </li>
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h8M8 16h5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg><h2>Politeness particles</h2></div>
+  <p class="section-note">Tack one onto the end of anything above.</p>
+  <div class="badge-row" id="particles"></div>
 
-    <li class="level">
-      <span class="num" style="--swatch:#c98f52;">3</span>
-      <a href="https://claude.ai/code/artifact/9b8fa86a-774e-4a6a-b4cd-1b355172107a">
-        <span class="arrow">→</span>
-        <div class="title">Weather, Colors &amp; Describing Things</div>
-        <div class="desc">The weather, colour names and shades, basic adjectives</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#c96a4a;">4</span>
-      <a href="https://claude.ai/code/artifact/896eb6bf-0610-446e-aa19-13e6041a9755">
-        <span class="arrow">→</span>
-        <div class="title">Body, Feelings &amp; Health</div>
-        <div class="desc">Body parts, feelings, the pharmacy, and emergency phrases</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#e8608f;">5</span>
-      <a href="https://claude.ai/code/artifact/3f74ab06-a441-4e9c-adbf-63bbd74b669c">
-        <span class="arrow">→</span>
-        <div class="title">Getting Around</div>
-        <div class="desc">Taxis, motorbike taxis, the BTS/MRT, buying tickets</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#b97fb0;">6</span>
-      <a href="https://claude.ai/code/artifact/15850f29-ddf7-4f14-941a-1e61b433c708">
-        <span class="arrow">→</span>
-        <div class="title">At the Hotel</div>
-        <div class="desc">Check-in, room requests and problems, amenities</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#d9542f;">7</span>
-      <a href="https://claude.ai/code/artifact/513aff0e-0fa9-45da-b4a9-ccd84dff59d1">
-        <span class="arrow">→</span>
-        <div class="title">Food, Drink &amp; Dining Out</div>
-        <div class="desc">Flavours, customizing a dish, diets and allergies, drinks</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#a68a3c;">8</span>
-      <a href="https://claude.ai/code/artifact/8a2593eb-d3b6-48b6-b467-3f87fd7f584b">
-        <span class="arrow">→</span>
-        <div class="title">Shopping, Bargaining &amp; Money</div>
-        <div class="desc">Real negotiating moves, paying, change, receipts</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#e0a054;">9</span>
-      <a href="https://claude.ai/code/artifact/69d63622-5c58-4c09-98be-919eb87fe5a9">
-        <span class="arrow">→</span>
-        <div class="title">Small Talk, Questions &amp; Reactions</div>
-        <div class="desc">Casual conversation, question words, interjections</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#8b5fbf;">10</span>
-      <a href="https://claude.ai/code/artifact/67df80cc-4058-4526-a097-fc271ec9fd8a">
-        <span class="arrow">→</span>
-        <div class="title">Verbs &amp; Building Sentences</div>
-        <div class="desc">Core verbs plus the marker words for tense and mood</div>
-      </a>
-    </li>
-
-    <li class="level">
-      <span class="num" style="--swatch:#e2905c;">11</span>
-      <a href="https://claude.ai/code/artifact/a07996ad-c114-4b7f-8871-6c9c279ba998">
-        <span class="arrow">→</span>
-        <div class="title">Daily Routine</div>
-        <div class="desc">Morning to night — the capstone that stitches every level together</div>
-      </a>
-    </li>
-
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Get the numbers table cold. Drill baht amounts daily.</li>
+    <li>Pick one template per section per day. Swap in five different nouns each time.</li>
+    <li>Add kráp / kâ automatically until it stops feeling like an extra step.</li>
   </ol>
-
-  <footer>เดินทางพันลี้เริ่มต้นด้วยก้าวเดียว — a journey of a thousand miles begins with one step</footer>
+  <p class="panel-footer">เที่ยวให้สนุกนะ — travel well</p>
 </div>
+</section>
+
+<!-- ============================================================ LEVEL 1 -->
+<section class="level-panel" data-level="1" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 1 of 12</div>
+    <h1>Greetings &amp; First Words</h1>
+    <p>Hello, how are you, introducing yourself, and asking someone to slow down.</p>
+    <div class="price-tag">
+      <span class="sub">the gotcha that's easy to get backwards</span>
+      <span class="big">ครับ / ค่ะ</span>
+      <span class="thai">kráp (men) — kâ (women)</span>
+      <span class="sub">not interchangeable — the particle itself is gendered</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11c0-2 1.5-4 5-4s5 2 5 4"/><path d="M4 14c1.5-1 3-1 4.5 0M15.5 14c1.5-1 3-1 4.5 0"/><circle cx="12" cy="17.5" r="1"/></svg><h2>Basic greetings</h2></div>
+  <p class="section-note">One word covers hello, good morning, and good evening.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-greet"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-4 4V5z"/><path d="M8 9h8M8 12h5"/></svg><h2>How are you &amp; goodbyes</h2></div>
+  <p class="section-note"><b>sà-baai-dii mǎi</b> is Thailand's "how's it going."</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-howru"></tbody></table>
+  <div class="callout"><div class="flag">⚠ the kráp / kâ split</div><p>Men end statements and questions with <b>kráp</b>. Women end statements with <b>kâ</b> and questions with <b>ká</b>.</p><div class="example" id="example-particle"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="9" cy="11" r="1.6"/><path d="M13 10.5h4M13 12.5h4"/></svg><h2>Introducing yourself</h2></div>
+  <p class="section-note">Chain these in order — name, then home, then a detail.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-intro"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v3a5 5 0 0 0 10 0"/><path d="M12 21v-5M9 21h6"/></svg><h2>Understanding Thai</h2></div>
+  <p class="section-note">Your reset button for any conversation that's gotten away from you.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-understand"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Get sà-wàt-dii plus your own gender particle automatic first.</li>
+    <li>Say the introduction templates as one full sentence with your real details.</li>
+    <li>Keep "mâi kâo-jai" and "pôot cháa-cháa dâi mǎi" ready.</li>
+  </ol>
+  <p class="panel-footer">ยินดีที่ได้รู้จัก — nice to meet you</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 2 -->
+<section class="level-panel" data-level="2" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 2 of 12</div>
+    <h1>Time &amp; Calendar</h1>
+    <p>Days, months, dates, and asking the time.</p>
+    <div class="price-tag">
+      <span class="sub">every day of the week starts the same way</span>
+      <span class="big">วัน + ___ = day of week</span>
+      <span class="thai">wan-jan, wan-ang-kaan, wan-pút...</span>
+      <span class="sub">"wan" (day) is the shared prefix</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><h2>Days of the week</h2></div>
+  <p class="section-note">Every day name starts with <b>wan</b> — seven second-syllables to learn.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-days"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="14" r="1"/><circle cx="12" cy="14" r="1"/><circle cx="16" cy="14" r="1"/></svg><h2>Months &amp; dates</h2></div>
+  <p class="section-note">For now, just recognise the twelve.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-months"></tbody></table>
+  <table style="margin-top:14px;"><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-dates"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><h2>Asking the time</h2></div>
+  <p class="section-note"><b>gìi mohng</b> is the one phrase to master.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-time"></tbody></table>
+  <div class="callout"><div class="flag">⚠ the six-hour clock</div><p>Don't try to build exact clock times from scratch yet — ask <b>gìi mohng</b> and listen, or say the hour plus a part-of-day word.</p><div class="example" id="example-time"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17h16"/><circle cx="12" cy="12" r="4"/></svg><h2>Parts of the day &amp; relative time</h2></div>
+  <p class="section-note">Stack one onto a day name or time to anchor it.</p>
+  <div class="badge-row" id="parts"></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Say today's real day and date out loud every morning.</li>
+    <li>Learn the seven day names as sounds first.</li>
+    <li>Lean on "gìi mohng" plus a part-of-day word instead of fighting the six-hour clock.</li>
+  </ol>
+  <p class="panel-footer">เวลาเป็นของมีค่า — time is valuable</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 3 -->
+<section class="level-panel" data-level="3" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 3 of 12</div>
+    <h1>Weather, Colors &amp; Describing Things</h1>
+    <p>Talk about the sky, name what you see, and describe anything.</p>
+    <div class="price-tag">
+      <span class="sub">the shade modifier goes after the colour</span>
+      <span class="big">สีฟ้าอ่อน = light blue</span>
+      <span class="thai">sǐi-fáa-àwn — not "àwn sǐi-fáa"</span>
+      <span class="sub">colour first, then อ่อน (light) or เข้ม (dark)</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16a4 4 0 0 1 .5-8 5 5 0 0 1 9.5 1.5A3.5 3.5 0 0 1 17 16H7z"/></svg><h2>The weather</h2></div>
+  <p class="section-note">Enough to open small talk anywhere.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-weather"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.7 1.5-1.5s-.4-1-.4-1.6c0-.8.7-1.4 1.5-1.4H16a4 4 0 0 0 4-4c0-5-3.6-9.5-8-9.5z"/></svg><h2>Colours</h2></div>
+  <p class="section-note">Every colour follows <b>sǐi</b>.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-colors"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5L20 20"/></svg><h2>Describing things</h2></div>
+  <p class="section-note">Adjectives sit straight after the noun — no "is" needed.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-describe"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Describe today's actual weather out loud each morning.</li>
+    <li>Point at five objects and say their colour, then add อ่อน/เข้ม.</li>
+    <li>Take one adjective a day and attach it to three different nouns.</li>
+  </ol>
+  <p class="panel-footer">ฟ้าใสวันนี้ — clear skies today</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 4 -->
+<section class="level-panel" data-level="4" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 4 of 12</div>
+    <h1>Body, Feelings &amp; Health</h1>
+    <p>Point to what hurts, say how you feel, and get real help.</p>
+    <div class="price-tag">
+      <span class="sub">two different words for "hurts"</span>
+      <span class="big">jèp vs bpùat</span>
+      <span class="thai">เจ็บ = sharp/specific &nbsp;·&nbsp; ปวด = dull ache</span>
+      <span class="sub">jèp stands alone after the body part; bpùat goes in front</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M9 21v-6H7l1.5-6h7L17 15h-2v6"/></svg><h2>Body parts</h2></div>
+  <p class="section-note">Point and say <b>___ jèp</b>.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-body"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg><h2>Feelings &amp; how your body feels</h2></div>
+  <p class="section-note">Most end in <b>-jai</b> (heart/mind).</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-feel"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg><h2>Pharmacy &amp; seeing a doctor</h2></div>
+  <p class="section-note">Pharmacies sell basic medicine over the counter — no prescription needed for most things.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-pharm"></tbody></table>
+  <div class="callout"><div class="flag">⚠ jèp vs bpùat</div><p><b>เจ็บ (jèp)</b> comes <em>after</em> the body part. <b>ปวด (bpùat)</b> comes <em>before</em> it instead: "bpùat-hǔa" (headache).</p><div class="example" id="example-hurt"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/></svg><h2>Emergencies</h2></div>
+  <p class="section-note">Learn these cold.</p>
+  <div class="emergency-row" id="emergencies"></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Touch each body part as you say it.</li>
+    <li>Practice "___ jèp" and "bpùat-___" with three body parts each.</li>
+    <li>Say all six emergency phrases from memory, no table in front of you.</li>
+  </ol>
+  <p class="panel-footer">ดูแลตัวเองด้วยนะ — take care of yourself</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 5 -->
+<section class="level-panel" data-level="5" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 5 of 12</div>
+    <h1>Getting Around</h1>
+    <p>Taxis, motorbike taxis, the BTS/MRT, and buying a ticket.</p>
+    <div class="price-tag">
+      <span class="sub">insist on this before the car moves</span>
+      <span class="big">เปิดมิเตอร์ด้วย</span>
+      <span class="thai">bpèrt-mí-dtêr-dûai — "turn on the meter"</span>
+      <span class="sub">a driver who won't is negotiating a flat rate</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l1.5-5a2 2 0 0 1 2-1.5h9a2 2 0 0 1 2 1.5L20 16"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg><h2>Taxis &amp; motorbike taxis</h2></div>
+  <p class="section-note">Turn-by-turn directions live in Level 0 — these are for hailing and negotiating.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-taxi"></tbody></table>
+  <div class="callout"><div class="flag">⚠ metered vs negotiated</div><p>A metered taxi should run the meter. Motorbike taxis (win) don't use meters — confirm the price before you get on.</p><div class="example" id="example-taxi"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="13" rx="2"/><path d="M5 12h14"/></svg><h2>Trains, buses &amp; boats</h2></div>
+  <p class="section-note">Enough to read a platform sign or ask an attendant.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-transit"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1.5 1.5 0 0 0 0 3v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1a1.5 1.5 0 0 0 0-3z"/></svg><h2>Buying tickets</h2></div>
+  <p class="section-note">For longer trips.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-tickets"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Say "bpai tîi ___" out loud with your real destination.</li>
+    <li>Practice departure time and duration questions together.</li>
+    <li>Rehearse the metered-vs-negotiated script.</li>
+  </ol>
+  <p class="panel-footer">เดินทางปลอดภัย — travel safely</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 6 -->
+<section class="level-panel" data-level="6" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 6 of 12</div>
+    <h1>At the Hotel</h1>
+    <p>Check in, ask for what your room is missing, and use the front desk.</p>
+    <div class="price-tag">
+      <span class="sub">a floor number you might not see</span>
+      <span class="big">no floor 4</span>
+      <span class="thai">sìi (4) sounds close to death-related words</span>
+      <span class="sub">many hotels skip it, like skipping 13 in the West</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="12" rx="2"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><h2>Check-in &amp; check-out</h2></div>
+  <p class="section-note"><b>jawng hâwng wái</b> is your opening line.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-checkin"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/></svg><h2>Room requests &amp; problems</h2></div>
+  <p class="section-note"><b>kǎw ___</b> scales to almost anything.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-room"></tbody></table>
+  <div class="callout"><div class="flag">⚠ the missing 4th floor</div><p>สี่ (sìi, "four") sounds close enough to death-associated words that many buildings skip a labeled floor 4.</p><div class="example" id="example-floor"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18h14M6 18v-4a6 6 0 0 1 12 0v4"/></svg><h2>Amenities &amp; services</h2></div>
+  <p class="section-note">Breakfast, luggage storage, and calling a taxi from the lobby.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-amenities"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Rehearse the whole check-in exchange as one sequence.</li>
+    <li>Use a room-problem template next time something's genuinely off.</li>
+    <li>Learn "mii ___ mǎi" as your universal amenity question.</li>
+  </ol>
+  <p class="panel-footer">พักผ่อนให้เต็มที่ — rest up properly</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 7 -->
+<section class="level-panel" data-level="7" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 7 of 12</div>
+    <h1>Food, Drink &amp; Dining Out</h1>
+    <p>Flavor words, customizing a dish, diets and allergies, and drinks.</p>
+    <div class="price-tag">
+      <span class="sub">the default is sweeter than you think</span>
+      <span class="big">หวานน้อย</span>
+      <span class="thai">wǎan nói — "less sweet"</span>
+      <span class="sub">Thai drinks come pre-sweetened unless you say otherwise</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3c-3 1-3 5-1 7"/></svg><h2>Tastes &amp; flavors</h2></div>
+  <p class="section-note">Thai cooking balances all five at once.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-taste"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10a7 3.5 0 0 0 14 0"/></svg><h2>Customizing your order</h2></div>
+  <p class="section-note">Order exactly what you want.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-custom"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 0 7 3 7 7 0 6-7 11-7 11S5 16 5 10c0-4 3-7 7-7z"/></svg><h2>Diets, allergies &amp; meats</h2></div>
+  <p class="section-note">Say this before you order.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-diet"></tbody></table>
+  <div class="callout"><div class="flag">⚠ MSG is a default, not an add-on</div><p>ผงชูรส (MSG) is standard seasoning unless you say <b>mâi sài pǒng-chuu-rót</b> up front.</p><div class="example" id="example-msg"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h10l-1 10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/></svg><h2>Drinks &amp; the coffee shop</h2></div>
+  <p class="section-note">Sweetness and size, every single time.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-drinks"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Name all five flavors you can actually taste in your next meal.</li>
+    <li>Add "wǎan nói" to every drink order for a week.</li>
+    <li>Write any real dietary restriction on your lock screen until memorized.</li>
+  </ol>
+  <p class="panel-footer">กินข้าวยัง — have you eaten yet?</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 8 -->
+<section class="level-panel" data-level="8" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 8 of 12</div>
+    <h1>Shopping, Bargaining &amp; Money</h1>
+    <p>Past "how much" and "too expensive" — real negotiating, plus paying.</p>
+    <div class="price-tag">
+      <span class="sub">carry these before you need them</span>
+      <span class="big">แบงก์ย่อย</span>
+      <span class="thai">báeng-yôi — small bills</span>
+      <span class="sub">most street vendors can't break a 1,000-baht note</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M6 9h12"/></svg><h2>Bargaining, one step further</h2></div>
+  <p class="section-note">Level 0's opener starts the negotiation — these keep it moving.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-bargain"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3"/></svg><h2>Paying &amp; money</h2></div>
+  <p class="section-note">Cash is still king outside malls and 7-Elevens.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-money"></tbody></table>
+  <div class="callout"><div class="flag">⚠ big notes, small vendors</div><p>Break large notes at a 7-Eleven or bank before you need small bills.</p><div class="example" id="example-money"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Run a full negotiation out loud, start to finish.</li>
+    <li>Read a price back to confirm it before handing over cash.</li>
+    <li>Keep a running mental note of your smallest bill and coin count.</li>
+  </ol>
+  <p class="panel-footer">ต่อรองอย่างมีน้ำใจ — bargain with good spirit</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 9 -->
+<section class="level-panel" data-level="9" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 9 of 12</div>
+    <h1>Small Talk, Questions &amp; Reactions</h1>
+    <p>Casual conversation, question words, and interjections.</p>
+    <div class="price-tag">
+      <span class="sub">not rude here — completely normal small talk</span>
+      <span class="big">แต่งงานหรือยัง?</span>
+      <span class="thai">dtàeng-ngaan rěu yang — "married yet?"</span>
+      <span class="sub">age, marriage, and salary are casual opener territory</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11v8H9l-4 4V5z"/></svg><h2>Hanging out &amp; small talk</h2></div>
+  <p class="section-note">The questions Thai people actually open with.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-chat"></tbody></table>
+  <div class="callout"><div class="flag">⚠ "___ reu yang" — a template inside a template</div><p>หรือยัง (rěu yang, "...yet?") tacks onto almost any verb.</p><div class="example" id="example-yet"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg><h2>Question words</h2></div>
+  <p class="section-note">Swap the question word, keep the rest the same.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-questions"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v9"/></svg><h2>Reactions &amp; surprises</h2></div>
+  <p class="section-note">Drop these in to sound engaged.</p>
+  <div class="badge-row" id="reactions"></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Text a friend "ทำอะไรอยู่" this week instead of English.</li>
+    <li>Pick one question word a day and build three questions with it.</li>
+    <li>React to something today using one of these instead of English.</li>
+  </ol>
+  <p class="panel-footer">คุยกันสนุกๆ — chat and enjoy it</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 10 -->
+<section class="level-panel" data-level="10" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 10 of 12</div>
+    <h1>Verbs &amp; Building Sentences</h1>
+    <p>Core action words, and the marker words that build a full sentence around them.</p>
+    <div class="price-tag">
+      <span class="sub">the best news in this whole suite</span>
+      <span class="big">verbs never change</span>
+      <span class="thai">no tense endings, no conjugation, ever</span>
+      <span class="sub">time comes from separate marker words instead</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="5" r="2"/></svg><h2>Core verbs</h2></div>
+  <p class="section-note">Fourteen verbs that cover most of what you'll say.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-verbs"></tbody></table>
+  <div class="callout"><div class="flag">⚠ no conjugation, anywhere</div><p><b>gin</b> is "eat," "eats," "ate," and "eating," always. Add จะ (jà) before for future, แล้ว (láew) after for done.</p><div class="example" id="example-verb"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg><h2>Time &amp; mood markers</h2></div>
+  <p class="section-note">Bolt one onto any verb above — the verb never moves or changes.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-markers"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/></svg><h2>Chaining two verbs</h2></div>
+  <p class="section-note">Thai strings verbs directly, no "to" or "and" needed.</p>
+  <table><thead><tr><th>Template</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-chain"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Say one verb three ways: plain, with jà, and with láew.</li>
+    <li>Chain "yàak bpai" onto any place name you already know.</li>
+    <li>Narrate your actual day for thirty seconds using only these.</li>
+  </ol>
+  <p class="panel-footer">ลงมือทำเลย — just go do it</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 11 -->
+<section class="level-panel" data-level="11" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 11 of 12 — the last level</div>
+    <h1>Daily Routine</h1>
+    <p>Morning to night, in order — every earlier level's verbs, time words, and markers stitched into real sentences.</p>
+    <div class="price-tag">
+      <span class="sub">this level is the final exam, not new material</span>
+      <span class="big">narrate your day</span>
+      <span class="thai">verbs (10) + markers (10) + time (2) + this list</span>
+      <span class="sub">everything below is genuinely a sequence</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="5"/><path d="M4 16h16"/></svg><h2>Morning</h2></div>
+  <p class="section-note">Say these in order, out loud, as you actually do each one.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-morning"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg><h2>During the day</h2></div>
+  <p class="section-note">Work, school, or whatever fills your afternoon.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-day"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><h2>Evening &amp; night</h2></div>
+  <p class="section-note">Wind down, then close the loop back to "dtèun-nawn" tomorrow.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Meaning</th></tr></thead><tbody id="tbl-evening"></tbody></table>
+  <div class="callout"><div class="flag">⚠ your first real paragraph</div><p>Take any three routine phrases, add a time marker from Level 10, and a time-of-day word from Level 2.</p><div class="example" id="example-routine"></div></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this — the capstone version</h2></div>
+  <ol class="steps">
+    <li>Narrate today start to finish: six to eight sentences, no English filler.</li>
+    <li>Reuse yesterday's narration with jà to turn it into tomorrow's plan.</li>
+    <li>Fold in a template from any earlier level — that's the suite working as intended.</li>
+  </ol>
+  <p class="panel-footer">ทุกวันคือการฝึกฝน — every day is practice</p>
+</div>
+</section>
+
+<script>
+const TONE_MARKS = {
+  'à':'low','è':'low','ì':'low','ò':'low','ù':'low',
+  'á':'high','é':'high','í':'high','ó':'high','ú':'high',
+  'â':'falling','ê':'falling','î':'falling','ô':'falling','û':'falling',
+  'ǎ':'rising','ě':'rising','ǐ':'rising','ǒ':'rising','ǔ':'rising'
+};
+function colorTranslit(text){
+  return text.split('').map(ch=>{
+    const lower = ch.toLowerCase();
+    if(TONE_MARKS[lower]) return `<span class="tone-${TONE_MARKS[lower]}">${ch}</span>`;
+    return ch;
+  }).join('');
+}
+let thaiVoice = null;
+function pickVoice(){
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  thaiVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('th')) || null;
+}
+if(window.speechSynthesis){ pickVoice(); window.speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(thaiText, btn){
+  if(!window.speechSynthesis){ return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(thaiText);
+  u.lang = 'th-TH';
+  if(thaiVoice) u.voice = thaiVoice;
+  u.rate = 0.85;
+  if(btn){ btn.classList.add('speaking'); u.onend=()=>btn.classList.remove('speaking'); u.onerror=()=>btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+window.speak = speak;
+function renderRows(targetId, rows, cols){
+  const tbody = document.getElementById(targetId);
+  if(!tbody) return;
+  tbody.innerHTML = rows.map(r=>{
+    const safeThai = r[0].replace(/'/g,"\\'");
+    return `<tr>
+      <td class="thai" data-label="Thai">${r[0]} <button class="play-btn" onclick="speak('${safeThai}', this)" aria-label="Play audio" title="Play (device text-to-speech)">🔊</button></td>
+      <td class="translit" data-label="Say it">${colorTranslit(r[1])}</td>
+      <td class="meaning" data-label="${cols}">${r[2]}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ---- Level 0 ---- */
+renderRows('tbl-numbers', [["หนึ่ง","nèung","1"],["สอง","sǎwng","2"],["สาม","sǎam","3"],["สี่","sìi","4"],["ห้า","hâa","5"],["หก","hòk","6"],["เจ็ด","jèt","7"],["แปด","bpàet","8"],["เก้า","gâo","9"],["สิบ","sìp","10"],["สิบเอ็ด","sìp-èt","11"],["ยี่สิบ","yîi-sìp","20"],["ยี่สิบเอ็ด","yîi-sìp-èt","21"],["สามสิบ","sǎam-sìp","30"],["ร้อย","rói","100"],["พัน","pan","1,000"],["หมื่น","mèun","10,000 ⚠"],["แสน","sǎen","100,000"],["ล้าน","láan","1,000,000"]], 'Value');
+document.getElementById('example-calc').innerHTML = colorTranslit('25,000 → สองหมื่นห้าพัน → sǎwng-mèun-hâa-pan &nbsp;(2×10,000 + 5×1,000)');
+renderRows('tbl-food', [["ขอ___","kǎw ___","May I have ___"],["เอา___ค่ะ/ครับ","ao ___ kâ/kráp","I'll take ___"],["ไม่เอา___","mâi ao ___","I don't want ___"],["___ไม่ใส่___","___ mâi sài ___","___ without ___"],["ไม่เผ็ด","mâi pèt","not spicy"],["เผ็ดนิดหน่อย","pèt nít-nòi","a little spicy"],["เก็บเงินด้วย","gèp ngern dûai","Check, please"],["อร่อย","a-ròi","delicious"],["น้ำ","náam","water"],["ข้าว","kâao","rice"],["ไม่ใส่น้ำตาล","mâi sài náam-dtaan","no sugar"],["ไม่ใส่น้ำแข็ง","mâi sài náam-kǎeng","no ice"]], 'Meaning');
+renderRows('tbl-shop', [["นี่เท่าไหร่","nîi tâo-rài","how much is this?"],["___บาท","___ bàat","___ baht"],["แพงไป","paeng bpai","too expensive"],["ลดได้ไหม","lót dâi mǎi","can you lower it?"],["มี___ไหม","mii ___ mǎi","do you have ___?"],["ขอดู___หน่อย","kǎw duu ___ nòi","may I look at ___"],["อันนี้ / อันนั้น","an-níi / an-nán","this one / that one"],["ใหญ่กว่า / เล็กกว่า","yài-gwàa / lék-gwàa","bigger / smaller"],["สีอื่น","sǐi-èun","another colour"]], 'Meaning');
+renderRows('tbl-dir', [["___อยู่ที่ไหน","___ yùu tîi-nǎi","where is ___?"],["เลี้ยวซ้าย","líao sáai","turn left"],["เลี้ยวขวา","líao kwǎa","turn right"],["ตรงไป","dtrong bpai","go straight"],["ไกล/ใกล้ไหม","glai/glâi mǎi","is it far / close?"],["จอดตรงนี้","jàwt dtrong-níi","stop here"],["ห้องน้ำ","hâwng-náam","bathroom"]], 'Meaning');
+document.getElementById('particles').innerHTML = [["ครับ","kráp","men — end of any statement or question"],["ค่ะ","kâ","women — end of a statement"],["คะ","ká","women — end of a question"]].map(p=>`<div class="badge"><b>${colorTranslit(p[1])}</b><span>${p[0]} — ${p[2]}</span></div>`).join('');
+
+/* ---- Level 1 ---- */
+renderRows('tbl-greet', [["สวัสดี","sà-wàt-dii","hello (any time of day)"],["ยินดีที่ได้รู้จัก","yin-dii tîi dâi rúu-jàk","nice to meet you"],["ขอโทษ","kǎw-tôot","excuse me / sorry"],["ขอบคุณ","kàwp-kun","thank you"],["ไม่เป็นไร","mâi bpen rai","no worries / you're welcome"]], 'Meaning');
+renderRows('tbl-howru', [["สบายดีไหม","sà-baai-dii mǎi","are you well?"],["สบายดี","sà-baai-dii","I'm well"],["เป็นอย่างไร","bpen yàang-rai","how's it going?"],["เดี๋ยวเจอกัน","dǐao jer gan","see you in a bit"],["ไปก่อนนะ","bpai gòn ná","heading off now"],["ลาก่อน","laa gòn","goodbye"]], 'Meaning');
+document.getElementById('example-particle').innerHTML = colorTranslit('สวัสดีครับ (man) &nbsp;vs&nbsp; สวัสดีค่ะ (woman)');
+renderRows('tbl-intro', [["ผม/ฉันชื่อ___","pǒm/chǎn chêu ___","my name is ___ (men: pǒm, women: chǎn)"],["คุณชื่ออะไร","kun chêu à-rai","what's your name?"],["มาจาก___","maa jàak ___","I'm from ___"],["อยู่ที่___","yùu tîi ___","I live in ___"],["อายุ___ปี","aa-yú ___ bpii","I am ___ years old"],["ทำงานเป็น___","tam-ngaan bpen ___","I work as ___"]], 'Meaning');
+renderRows('tbl-understand', [["ไม่เข้าใจ","mâi kâo-jai","I don't understand"],["เข้าใจแล้ว","kâo-jai láew","got it"],["พูดช้าๆได้ไหม","pôot cháa-cháa dâi mǎi","can you speak slowly?"],["พูดไทยไม่เก่ง","pôot tai mâi gèng","I don't speak Thai well"],["พูดอังกฤษได้ไหม","pôot ang-grìt dâi mǎi","can you speak English?"],["___คืออะไร","___ keu à-rai","what is ___?"]], 'Meaning');
+
+/* ---- Level 2 ---- */
+renderRows('tbl-days', [["วันจันทร์","wan-jan","Monday"],["วันอังคาร","wan-ang-kaan","Tuesday"],["วันพุธ","wan-pút","Wednesday"],["วันพฤหัสบดี","wan-pá-réu-hàt","Thursday"],["วันศุกร์","wan-sùk","Friday"],["วันเสาร์","wan-sǎo","Saturday"],["วันอาทิตย์","wan-aa-tít","Sunday"],["วันนี้วันอะไร","wan-níi wan à-rai","what day is it today?"]], 'Meaning');
+renderRows('tbl-months', [["มกราคม","má-gà-raa-kom","January"],["กุมภาพันธ์","gum-paa-pan","February"],["มีนาคม","mii-naa-kom","March"],["เมษายน","mee-sǎa-yon","April"],["พฤษภาคม","préut-sà-paa-kom","May"],["มิถุนายน","mí-tù-naa-yon","June"],["กรกฎาคม","gà-rá-gà-daa-kom","July"],["สิงหาคม","sǐng-hǎa-kom","August"],["กันยายน","gan-yaa-yon","September"],["ตุลาคม","dtù-laa-kom","October"],["พฤศจิกายน","préut-sà-jì-gaa-yon","November"],["ธันวาคม","tan-waa-kom","December"]], 'Meaning');
+renderRows('tbl-dates', [["วันที่___เดือน___","wan-tîi ___ deuan ___","the ___ of ___ (day, then month)"],["ปีนี้ปีอะไร","bpii-níi bpii à-rai","what year is it?"],["เกิดวันที่เท่าไหร่","gèrt wan-tîi tâo-rài","what date were you born?"]], 'Meaning');
+renderRows('tbl-time', [["ตอนนี้กี่โมง","dtawn-níi gìi mohng","what time is it now?"],["___โมง","___ mohng","___ o'clock"],["___โมงครึ่ง","___ mohng krêung","half past ___"],["เปิดกี่โมง","bpèrt gìi mohng","what time does it open?"],["ปิดกี่โมง","bpìt gìi mohng","what time does it close?"],["ตอนกี่โมง","dtawn gìi mohng","at what time?"]], 'Meaning');
+document.getElementById('example-time').innerHTML = colorTranslit('บ่ายสามโมง → bàai-sǎam-mohng → 3pm');
+document.getElementById('parts').innerHTML = [["เช้า","cháo","morning"],["บ่าย","bàai","afternoon"],["เย็น","yen","evening"],["กลางคืน","glaang-keun","night"],["เมื่อวาน","mêua-waan","yesterday"],["วันนี้","wan-níi","today"],["พรุ่งนี้","prûng-níi","tomorrow"]].map(p=>`<div class="badge"><b>${colorTranslit(p[1])}</b><span>${p[0]} — ${p[2]}</span></div>`).join('');
+
+/* ---- Level 3 ---- */
+renderRows('tbl-weather', [["อากาศเป็นอย่างไร","aa-gàat bpen yàang-rai","how's the weather?"],["ฝนตก","fǒn dtòk","it's raining"],["พรุ่งนี้ฝนจะตกไหม","prûng-níi fǒn jà dtòk mǎi","will it rain tomorrow?"],["แดดออก","dàet àwk","it's sunny"],["ร้อนมาก","ráwn mâak","it's very hot"],["หนาว","nǎao","cold"],["ลมแรง","lom raeng","windy"]], 'Meaning');
+const colorSwatch = {"แดง":"#c1443b","ส้ม":"#d8843a","เหลือง":"#d8b93a","เขียว":"#4fa696","ฟ้า":"#5b93c0","น้ำเงิน":"#3f5f95","ม่วง":"#8b6aa8","ดำ":"#2b2b2b","ขาว":"#f3efe4","เทา":"#9aa0a6","ทอง":"#c9a24a","เงิน":"#b9bec2"};
+function dotFor(thai){ for(const key in colorSwatch){ if(thai.indexOf(key)!==-1) return colorSwatch[key]; } return null; }
+const colorsData = [["สีแดง","sǐi daeng","red"],["สีส้ม","sǐi sôm","orange"],["สีเหลือง","sǐi lěuang","yellow"],["สีเขียว","sǐi kǐao","green"],["สีฟ้า","sǐi fáa","blue (sky)"],["สีน้ำเงิน","sǐi náam-ngern","blue (navy)"],["สีม่วง","sǐi mûang","purple"],["สีดำ","sǐi dam","black"],["สีขาว","sǐi kǎao","white"],["สีเทา","sǐi tao","gray"],["สีทอง","sǐi tawng","gold"],["สีเงิน","sǐi ngern","silver"],["___อ่อน","___ àwn","light ___"],["___เข้ม","___ kêm","dark ___"]];
+document.getElementById('tbl-colors').innerHTML = colorsData.map(r=>{
+  const safeThai = r[0].replace(/'/g,"\\'"); const dot = dotFor(r[0]); const dotHtml = dot ? `<span class="cdot" style="background:${dot}"></span>` : '';
+  return `<tr><td class="thai" data-label="Thai">${dotHtml}${r[0]} <button class="play-btn" onclick="speak('${safeThai}', this)" aria-label="Play audio">🔊</button></td><td class="translit" data-label="Say it">${colorTranslit(r[1])}</td><td class="meaning" data-label="Meaning">${r[2]}</td></tr>`;
+}).join('');
+renderRows('tbl-describe', [["ใหญ่ / เล็ก","yài / lék","big / small"],["สวย","sǔai","pretty"],["น่ารัก","nâa-rák","cute"],["ใหม่ / เก่า","mài / gào","new / old"],["ดี / ไม่ดี","dii / mâi dii","good / not good"],["___มากไป","___ mâak bpai","too ___"],["___กว่า","___ gwàa","more ___ / ___-er"]], 'Meaning');
+
+/* ---- Level 4 ---- */
+renderRows('tbl-body', [["หัว","hǔa","head"],["หน้า","nâa","face"],["ตา","dtaa","eye"],["หู","hǔu","ear"],["จมูก","jà-mùuk","nose"],["ปาก","bpàak","mouth"],["คอ","kaw","neck / throat"],["ท้อง","tháwng","stomach"],["แขน","kǎen","arm"],["มือ","meu","hand"],["ขา","kǎa","leg"],["เท้า","táo","foot"],["หลัง","lǎng","back"],["___เจ็บ","___ jèp","___ hurts"]], 'Meaning');
+renderRows('tbl-feel', [["ดีใจ","dii-jai","happy"],["เสียใจ","sǐa-jai","sad"],["โกรธ","gròot","angry"],["กลัว","glua","afraid"],["ตื่นเต้น","dtèun-dtên","excited"],["เหนื่อย","nèuai","tired"],["หิว","hǐu","hungry"],["หิวน้ำ","hǐu náam","thirsty"],["ไม่สบาย","mâi sà-baai","feeling unwell"],["เวียนหัว","wian-hǔa","dizzy"]], 'Meaning');
+renderRows('tbl-pharm', [["มียาแก้ปวดไหม","mii yaa gâe-bpùat mǎi","do you have painkillers?"],["เป็นไข้","bpen kâi","I have a fever"],["แพ้ยา___","páe yaa ___","allergic to ___ medicine"],["กินยาวันละ___ครั้ง","gin yaa wan-lá ___ kráng","take medicine ___ times a day"],["หาหมอ","hǎa mǎw","see a doctor"],["โรงพยาบาลอยู่ที่ไหน","rohng-pá-yaa-baan yùu tîi-nǎi","where's the hospital?"]], 'Meaning');
+document.getElementById('example-hurt').innerHTML = colorTranslit('kǎa jèp (leg hurts) &nbsp;vs&nbsp; bpùat-hǔa (headache)');
+document.getElementById('emergencies').innerHTML = [["ช่วยด้วย","chûai dûai","Help!"],["โทรเรียกตำรวจ","toh rîak dtam-rùat","Call the police"],["โทรเรียกรถพยาบาล","toh rîak rót-pá-yaa-baan","Call an ambulance"],["หลงทาง","lǒng taang","I'm lost"],["ไฟไหม้","fai mâi","Fire!"],["ระวัง","rá-wang","Watch out"]].map(e=>{
+  const safe = e[0].replace(/'/g,"\\'");
+  return `<div class="ebadge"><span class="th">${e[0]} <button class="play-btn" onclick="speak('${safe}', this)" aria-label="Play audio">🔊</button></span><span class="tr">${colorTranslit(e[1])}</span><span class="en">${e[2]}</span></div>`;
+}).join('');
+
+/* ---- Level 5 ---- */
+renderRows('tbl-taxi', [["ไปที่___","bpai tîi ___","go to ___"],["เปิดมิเตอร์ด้วย","bpèrt-mí-dtêr-dûai","turn on the meter"],["ไปได้ไหม","bpai dâi mǎi","can you take me there?"],["ใช้เวลานานไหม","chái wee-laa naan mǎi","will it take long?"],["รอสักครู่","raw sàk-krûu","wait a moment"],["ไม่ต้องทอน","mâi dtâwng tawn","keep the change"],["ถึงแล้ว","tĕung láew","we've arrived"]], 'Meaning');
+document.getElementById('example-taxi').innerHTML = colorTranslit('ไปสนามบิน เท่าไหร่ → bpai sà-nǎam-bin, tâo-rài');
+renderRows('tbl-transit', [["รถไฟฟ้า","rót-fai-fáa","BTS / skytrain"],["รถไฟใต้ดิน","rót-fai dtâi-din","MRT / subway"],["รถเมล์","rót-may","bus"],["เรือ","reua","boat"],["มอเตอร์ไซค์รับจ้าง","maw-dtêr-sai ráp-jâang","motorbike taxi"],["ขึ้นรถที่ไหน","kêun rót tîi-nǎi","where do I board?"],["ลงที่นี่","long tîi-nîi","I'll get off here"],["สถานีต่อไปคือ___","sà-tǎa-nii dtàw-bpai keu ___","the next station is ___"]], 'Meaning');
+renderRows('tbl-tickets', [["ตั๋วไป___","dtǔa bpai ___","a ticket to ___"],["เที่ยวเดียว","tîao-diao","one-way"],["ไปกลับ","bpai-glàp","round-trip"],["รถออกกี่โมง","rót àwk gìi mohng","what time does it leave?"],["ใช้เวลากี่ชั่วโมง","chái wee-laa gìi chûa-mohng","how many hours does it take?"]], 'Meaning');
+
+/* ---- Level 6 ---- */
+renderRows('tbl-checkin', [["จองห้องไว้","jawng hâwng wái","I have a room booked"],["ขอกุญแจห้อง","kǎw gun-jae hâwng","may I have the room key?"],["ห้องเบอร์อะไร","hâwng ber à-rai","what's the room number?"],["เช็คเอาท์กี่โมง","chék-áot gìi mohng","what time is checkout?"],["ขอต่อวันได้ไหม","kǎw dtàw wan dâi mǎi","can I extend a day?"]], 'Meaning');
+renderRows('tbl-room', [["ขอห้องเงียบๆ","kǎw hâwng ngîap-ngîap","a quiet room"],["ขอผ้าเช็ดตัวเพิ่ม","kǎw pâa-chét-dtua pêrm","more towels"],["แอร์เสีย","aae sǐa","the air-con is broken"],["ไม่มีน้ำอุ่น","mâi mii náam-ùn","no hot water"],["ขอเปลี่ยนห้อง","kǎw bplìan hâwng","can I change rooms?"],["มีไวไฟไหม","mii wai-fai mǎi","is there wifi?"],["รหัสไวไฟคืออะไร","rá-hàt wai-fai keu à-rai","what's the wifi password?"]], 'Meaning');
+document.getElementById('example-floor').innerHTML = colorTranslit('ชั้น 3 → ชั้น 5 — floor 3 to floor 5, no floor 4');
+renderRows('tbl-amenities', [["มีอาหารเช้าไหม","mii aa-hǎan-cháo mǎi","is breakfast included?"],["อาหารเช้าถึงกี่โมง","aa-hǎan-cháo tĕung gìi mohng","until what time is breakfast?"],["ฝากกระเป๋าได้ไหม","fàak grà-bpǎo dâi mǎi","can I store my luggage?"],["เรียกแท็กซี่ให้หน่อย","rîak táek-sîi hâi nòi","please call a taxi"],["ทำความสะอาดห้องหน่อย","tam-kwaam-sà-àat hâwng nòi","please clean the room"]], 'Meaning');
+
+/* ---- Level 7 ---- */
+renderRows('tbl-taste', [["เผ็ด","pèt","spicy"],["หวาน","wǎan","sweet"],["เค็ม","kem","salty"],["เปรี้ยว","bprîao","sour"],["ขม","kǒm","bitter"],["จืด","jèut","bland"],["มัน","man","rich / creamy"],["___นิดหน่อย","___ nít-nòi","a little ___"]], 'Meaning');
+renderRows('tbl-custom', [["ขอแบบ___","kǎw bàep ___","I'd like the ___ style"],["ไม่ใส่ผัก","mâi sài pàk","no vegetables"],["ใส่พริกแยก","sài prík yâek","chili on the side"],["ทำแบบไม่มีกะทิ","tam bàep mâi mii gà-tí","no coconut milk"],["ขอห่อกลับบ้าน","kǎw hàw glàp bâan","to go, please"],["ทานที่นี่หรือกลับบ้าน","taan tîi-nîi rěu glàp-bâan","for here or to go?"]], 'Meaning');
+renderRows('tbl-diet', [["ไม่กินเนื้อ","mâi gin néua","I don't eat beef"],["ไม่กินหมู","mâi gin mǔu","I don't eat pork"],["กินมังสวิรัติ","gin mang-sà-wí-rát","I'm vegetarian"],["แพ้ถั่ว","páe tùa","allergic to nuts"],["แพ้อาหารทะเล","páe aa-hǎan-tá-lay","allergic to seafood"],["ไม่ใส่ผงชูรส","mâi sài pǒng-chuu-rót","no MSG"]], 'Meaning');
+document.getElementById('example-msg').innerHTML = colorTranslit('ไม่ใส่ผงชูรสนะ → mâi sài pǒng-chuu-rót ná');
+renderRows('tbl-drinks', [["กาแฟร้อน","gaa-fae ráwn","hot coffee"],["กาแฟเย็น","gaa-fae yen","iced coffee"],["ชาไทย","chaa-tai","Thai tea"],["หวานน้อย","wǎan nói","less sweet"],["ไม่หวาน","mâi wǎan","no sugar at all"],["แก้วใหญ่ / แก้วเล็ก","gâew yài / gâew lék","large / small cup"]], 'Meaning');
+
+/* ---- Level 8 ---- */
+renderRows('tbl-bargain', [["ลดหน่อยได้ไหม","lót nòi dâi mǎi","can you lower it a bit?"],["ลดอีกได้ไหม","lót ìik dâi mǎi","can you lower it more?"],["ถ้าซื้อสองอันลดไหม","tâa séu sǎwng an lót mǎi","discount if I buy two?"],["ราคาสุดท้าย","raa-kaa sùt-táai","final price?"],["แพงเกินไป","paeng gern-bpai","really too expensive"],["ขอราคาคนไทย","kǎw raa-kaa kon-tai","the local price?"],["ไม่ซื้อดีกว่า","mâi séu dii gwàa","I'd better not buy it"]], 'Meaning');
+renderRows('tbl-money', [["จ่ายเงินสด","jàai ngern-sòt","pay with cash"],["รับบัตรไหม","ráp bàt mǎi","accept card?"],["มีตู้เอทีเอ็มไหม","mii dtûu-ee-tii-em mǎi","ATM nearby?"],["แบงก์ย่อยมีไหม","báeng-yôi mii mǎi","smaller bills?"],["ทอนเงินด้วย","tawn ngern dûai","my change, please"],["ขอใบเสร็จ","kǎw bai-sèt","receipt, please"]], 'Meaning');
+document.getElementById('example-money').innerHTML = colorTranslit('มีแบงก์ย่อยไหม → mii báeng-yôi mǎi');
+
+/* ---- Level 9 ---- */
+renderRows('tbl-chat', [["ทำอะไรอยู่","tam-à-rai yùu","what are you doing?"],["ว่างไหม","wâang mǎi","are you free?"],["ไปเที่ยวกันไหม","bpai tîao gan mǎi","want to hang out?"],["อยู่ไทยมานานแค่ไหน","yùu tai maa naan kâe-nǎi","how long in Thailand?"],["ชอบเมืองไทยไหม","châwp meuang-tai mǎi","like Thailand?"],["มีแฟนหรือยัง","mii faen rěu yang","have a partner yet?"],["แต่งงานหรือยัง","dtàeng-ngaan rěu yang","married yet?"]], 'Meaning');
+document.getElementById('example-yet').innerHTML = colorTranslit('กินข้าวหรือยัง → gin-kâao rěu yang — "eaten yet?"');
+renderRows('tbl-questions', [["ทำไม","tam-mai","why?"],["ทำไมถึง___","tam-mai tĕung ___","why did/do ___?"],["ใครคือ___","krai keu ___","who is ___?"],["อันไหน","an-nǎi","which one?"],["เมื่อไหร่","mêua-rài","when?"],["ยังไง","yang-ngai","how?"]], 'Meaning');
+document.getElementById('reactions').innerHTML = [["จริงเหรอ","jing rěr","really?"],["ไม่จริง","mâi jing","no way!"],["โห","hǒh","whoa!"],["เยี่ยมเลย","yîam loei","awesome!"],["น่าสนใจ","nâa-sŏn-jai","interesting"],["แย่แล้ว","yâe láew","oh no"],["งั้นเหรอ","ngán rěr","is that so?"]].map(r=>`<div class="badge"><b>${colorTranslit(r[1])}</b><span>${r[0]} — ${r[2]}</span></div>`).join('');
+
+/* ---- Level 10 ---- */
+renderRows('tbl-verbs', [["ไป","bpai","go"],["มา","maa","come"],["กิน","gin","eat"],["ดื่ม","dèum","drink"],["ดู","duu","look / watch"],["ฟัง","fang","listen"],["พูด","pôot","speak"],["อ่าน","àan","read"],["เขียน","kǐan","write"],["ทำ","tam","do / make"],["ซื้อ","séu","buy"],["ให้","hâi","give"],["รอ","raw","wait"],["นอน","nawn","sleep"]], 'Meaning');
+document.getElementById('example-verb').innerHTML = colorTranslit('gin (eat) → jà gin (will eat) → gin láew (already ate)');
+renderRows('tbl-markers', [["จะ___","jà ___","will ___"],["___แล้ว","___ láew","already ___"],["กำลัง___","gam-lang ___","___-ing right now"],["อยาก___","yàak ___","want to ___"],["ต้อง___","dtâwng ___","must / have to ___"]], 'Meaning');
+renderRows('tbl-chain', [["ไปกิน___","bpai gin ___","go eat ___"],["อยากไป___","yàak bpai ___","want to go to ___"],["ช่วย___ให้หน่อย","chûai ___ hâi nòi","please help ___"],["ลอง___","lawng ___","try ___-ing"]], 'Meaning');
+
+/* ---- Level 11 ---- */
+renderRows('tbl-morning', [["ตื่นนอน","dtèun-nawn","wake up"],["แปรงฟัน","bpraeng fan","brush teeth"],["อาบน้ำ","àap náam","shower"],["แต่งตัว","dtàeng-dtua","get dressed"],["กินข้าวเช้า","gin kâao-cháo","eat breakfast"],["ออกจากบ้าน","àwk jàak bâan","leave the house"]], 'Meaning');
+renderRows('tbl-day', [["ไปทำงาน","bpai tam-ngaan","go to work"],["ไปโรงเรียน","bpai rohng-rian","go to school"],["พักเที่ยง","pák tîang","lunch break"],["ประชุม","bprà-chum","have a meeting"],["เลิกงาน","lêrk ngaan","finish work"]], 'Meaning');
+renderRows('tbl-evening', [["กลับบ้าน","glàp bâan","go home"],["ทำอาหาร","tam aa-hǎan","cook"],["ออกกำลังกาย","àwk-gam-lang-gaai","exercise"],["ดูทีวี","duu tii-wii","watch TV"],["พักผ่อน","pák-pàwn","relax"],["เข้านอน","kâo-nawn","go to bed"]], 'Meaning');
+document.getElementById('example-routine').innerHTML = colorTranslit('ตอนเช้าตื่นนอน แล้วอาบน้ำ → dtawn-cháo dtèun-nawn láew àap-náam<br>"in the morning I wake up, then shower"');
+
+/* ---- Nav wiring ---- */
+function showLevel(n){
+  n = String(n);
+  document.querySelectorAll('.level-panel').forEach(p=>{ p.hidden = (p.dataset.level !== n); });
+  document.documentElement.setAttribute('data-level', n);
+  document.querySelectorAll('#levelNav button').forEach(b=>{ b.classList.toggle('active', b.dataset.goto===n); });
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('#levelNav button').forEach(b=> b.addEventListener('click', ()=>showLevel(b.dataset.goto)) );
+showLevel(0);
+</script>
 </body>
 </html>
