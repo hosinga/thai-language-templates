@@ -30,6 +30,7 @@
   :root[data-level="13"]{ --bg-deep:#211820; --bg-panel:#2d2029; --bg-panel-2:#33242e; --marigold:#b06a86; --cream:#f2e8ec; --muted:#a3899a; --line:#402f3b; }
   :root[data-level="14"]{ --bg-deep:#1d1a14; --bg-panel:#28241c; --bg-panel-2:#2d2820; --marigold:#a9974a; --cream:#f0ecdd; --muted:#9c9482; --line:#3c362a; }
   :root[data-level="15"]{ --bg-deep:#141f16; --bg-panel:#1e2b20; --bg-panel-2:#223124; --marigold:#5cb85c; --cream:#eef3ea; --muted:#8fa189; --line:#2c3d2e; }
+  :root[data-level="16"]{ --bg-deep:#181c22; --bg-panel:#222831; --bg-panel-2:#262d37; --marigold:#7b8fb0; --cream:#eef0ec; --muted:#8890a0; --line:#333a46; }
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -156,6 +157,20 @@
   .bubble .translit-line{font-family:var(--font-mono);font-size:12.5px;margin-top:4px;}
   .bubble .meaning-line{color:var(--muted);font-size:12px;margin-top:4px;}
 
+  .quiz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+  .qcard{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:border-color .15s;}
+  .qcard:hover{border-color:var(--marigold);}
+  .qcard .qprompt{font-family:var(--font-thai);font-size:22px;display:flex;align-items:center;justify-content:center;gap:2px;}
+  .qcard .qhint{font-family:var(--font-mono);font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;}
+  .qcard.revealed .qhint{display:none;}
+  .qcard .qanswer{display:none;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
+  .qcard.revealed .qanswer{display:block;}
+  .qcard .qtone{font-family:var(--font-display);font-weight:700;color:var(--marigold);font-size:13.5px;}
+  .qcard .qtranslit{font-family:var(--font-mono);font-size:12px;margin-top:3px;}
+  .qcard .qrule{color:var(--muted);font-size:10.5px;margin-top:3px;}
+  .qcard .qbonus{color:var(--muted);font-size:10.5px;font-style:italic;margin-top:2px;}
+  @media (max-width:480px){.quiz-grid{grid-template-columns:repeat(2,1fr);}}
+
   @media (max-width:480px){
     thead{display:none;}
     table,tbody,tr,td{display:block;width:100%;}
@@ -186,6 +201,7 @@
   <button data-goto="13">13 Listen</button>
   <button data-goto="14">14 Casual</button>
   <button data-goto="15">15 Dialogue</button>
+  <button data-goto="16">16 Alphabet</button>
 </nav>
 
 <div class="global-legend">
@@ -204,7 +220,7 @@
 <section class="level-panel" data-level="0">
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 0 of 16</div>
+    <div class="eyebrow">Level 0 of 17</div>
     <h1>Survival Basics</h1>
     <p>A handful of fill-in-the-blank patterns, the numbers to shop with, and the tones colour-coded so you can hear them on the page.</p>
     <div class="price-tag">
@@ -256,7 +272,7 @@
 <section class="level-panel" data-level="1" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 1 of 16</div>
+    <div class="eyebrow">Level 1 of 17</div>
     <h1>Greetings &amp; First Words</h1>
     <p>Hello, how are you, introducing yourself, and asking someone to slow down.</p>
     <div class="price-tag">
@@ -303,7 +319,7 @@
 <section class="level-panel" data-level="2" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 2 of 16</div>
+    <div class="eyebrow">Level 2 of 17</div>
     <h1>Time &amp; Calendar</h1>
     <p>Days, months, dates, and asking the time.</p>
     <div class="price-tag">
@@ -351,7 +367,7 @@
 <section class="level-panel" data-level="3" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 3 of 16</div>
+    <div class="eyebrow">Level 3 of 17</div>
     <h1>Weather, Colors &amp; Describing Things</h1>
     <p>Talk about the sky, name what you see, and describe anything.</p>
     <div class="price-tag">
@@ -392,7 +408,7 @@
 <section class="level-panel" data-level="4" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 4 of 16</div>
+    <div class="eyebrow">Level 4 of 17</div>
     <h1>Body, Feelings &amp; Health</h1>
     <p>Point to what hurts, say how you feel, and get real help.</p>
     <div class="price-tag">
@@ -439,7 +455,7 @@
 <section class="level-panel" data-level="5" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 5 of 16</div>
+    <div class="eyebrow">Level 5 of 17</div>
     <h1>Getting Around</h1>
     <p>Taxis, motorbike taxis, the BTS/MRT, and buying a ticket.</p>
     <div class="price-tag">
@@ -481,7 +497,7 @@
 <section class="level-panel" data-level="6" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 6 of 16</div>
+    <div class="eyebrow">Level 6 of 17</div>
     <h1>At the Hotel</h1>
     <p>Check in, ask for what your room is missing, and use the front desk.</p>
     <div class="price-tag">
@@ -523,7 +539,7 @@
 <section class="level-panel" data-level="7" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 7 of 16</div>
+    <div class="eyebrow">Level 7 of 17</div>
     <h1>Food, Drink &amp; Dining Out</h1>
     <p>Flavor words, customizing a dish, diets and allergies, and drinks.</p>
     <div class="price-tag">
@@ -570,7 +586,7 @@
 <section class="level-panel" data-level="8" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 8 of 16</div>
+    <div class="eyebrow">Level 8 of 17</div>
     <h1>Shopping, Bargaining &amp; Money</h1>
     <p>Past "how much" and "too expensive" — real negotiating, plus paying.</p>
     <div class="price-tag">
@@ -607,7 +623,7 @@
 <section class="level-panel" data-level="9" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 9 of 16</div>
+    <div class="eyebrow">Level 9 of 17</div>
     <h1>Small Talk, Questions &amp; Reactions</h1>
     <p>Casual conversation, question words, and interjections.</p>
     <div class="price-tag">
@@ -649,7 +665,7 @@
 <section class="level-panel" data-level="10" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 10 of 16</div>
+    <div class="eyebrow">Level 10 of 17</div>
     <h1>Verbs &amp; Building Sentences</h1>
     <p>Core action words, and the marker words that build a full sentence around them.</p>
     <div class="price-tag">
@@ -691,7 +707,7 @@
 <section class="level-panel" data-level="11" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 11 of 16 — the last travel-arc level</div>
+    <div class="eyebrow">Level 11 of 17 — the last travel-arc level</div>
     <h1>Daily Routine</h1>
     <p>Morning to night, in order — every earlier level's verbs, time words, and markers stitched into real sentences.</p>
     <div class="price-tag">
@@ -733,7 +749,7 @@
 <section class="level-panel" data-level="12" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 12 of 16 — beyond survival Thai</div>
+    <div class="eyebrow">Level 12 of 17 — beyond survival Thai</div>
     <h1>Counting Things Correctly</h1>
     <p>Classifiers — the small word Thai puts after every number, that English speakers skip by instinct because English doesn't have one.</p>
     <div class="price-tag">
@@ -775,7 +791,7 @@
 <section class="level-panel" data-level="13" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 13 of 16 — beyond survival Thai</div>
+    <div class="eyebrow">Level 13 of 17 — beyond survival Thai</div>
     <h1>Understanding the Reply</h1>
     <p>You already know how to ask. This level is about what to do with what comes back — the part every phrasebook skips.</p>
     <div class="price-tag">
@@ -818,7 +834,7 @@
 <section class="level-panel" data-level="14" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 14 of 16 — beyond survival Thai</div>
+    <div class="eyebrow">Level 14 of 17 — beyond survival Thai</div>
     <h1>Sounding Less Like a Textbook</h1>
     <p>Same meaning, said the way a Thai friend actually says it. Nothing you've learned so far was wrong — it was formal, and formal isn't how peers talk to each other.</p>
     <div class="price-tag">
@@ -856,7 +872,7 @@
 <section class="level-panel" data-level="15" hidden>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Level 15 of 16 — beyond survival Thai</div>
+    <div class="eyebrow">Level 15 of 17 — beyond survival Thai</div>
     <h1>A Real Conversation</h1>
     <p>Four complete exchanges, both sides of each one, built almost entirely from templates already in this suite.</p>
     <div class="price-tag">
@@ -895,6 +911,55 @@
     <li>Swap one real detail — the dish, the destination, the room number — and redo the whole exchange as your own version.</li>
   </ol>
   <p class="panel-footer">คุยกันไปเรื่อยๆ — just keep the conversation going</p>
+</div>
+</section>
+
+<!-- ============================================================ LEVEL 16 -->
+<section class="level-panel" data-level="16" hidden>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Level 16 of 17 — beyond survival Thai</div>
+    <h1>Cracking the Alphabet &amp; Tones</h1>
+    <p>44 letters looks like one big memorization task. It's actually 20 letters plus two simple checks — and you already know real examples of every single rule from earlier levels.</p>
+    <div class="price-tag">
+      <span class="sub">you never memorize this list directly</span>
+      <span class="big">not mid, not high = low</span>
+      <span class="thai">20 letters to learn, 24 you get for free</span>
+      <span class="sub">low class is just "everything left over"</span>
+    </div>
+  </div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7v14H4z"/><path d="M13 5h7v14h-7z"/><path d="M7 9h1M7 12h1M16 9h1M16 12h1"/></svg><h2>The 20 letters that matter</h2></div>
+  <p class="section-note">Learn these two groups by name. Anything not in either list is automatically low class — no separate memorizing required.</p>
+  <table><thead><tr><th>Thai</th><th>Name &amp; sound</th><th>Class</th></tr></thead><tbody id="tbl-midclass"></tbody></table>
+  <table style="margin-top:14px;"><thead><tr><th>Thai</th><th>Name &amp; sound</th><th>Class</th></tr></thead><tbody id="tbl-highclass"></tbody></table>
+  <div class="callout"><div class="flag">⚠ the other 24 are free</div><p>ค ง ช ซ ท น พ ฟ ม ย ร ล ว ฮ and the rest — every consonant not in the two tables above is low class. You never memorize that list; you just recognize what's <em>not</em> mid or high.</p></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="2"/><path d="M12 8v3M12 11l-5 4M12 11l5 4"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg><h2>With a tone mark</h2></div>
+  <p class="section-note">You've been saying every one of these correctly for weeks — this is just why they sound the way they do.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Rule</th></tr></thead><tbody id="tbl-markrule"></tbody></table>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-7 4 14 2-7h4"/></svg><h2>No tone mark — live vs. dead</h2></div>
+  <p class="section-note">A syllable is "live" if it ends in a vowel or a soft sound (m/n/ng/y/w); "dead" if it ends in a hard stop (k/p/t) or a short vowel with nothing after it.</p>
+  <table><thead><tr><th>Thai</th><th>Say it</th><th>Rule</th></tr></thead><tbody id="tbl-livedead"></tbody></table>
+  <div class="callout"><div class="flag">the one extra wrinkle</div><p>Low-class dead syllables split further: a <b>short</b> vowel gives a high tone (รัก), a <b>long</b> vowel gives a falling tone (มาก). Every other combination in these two tables only has one possible outcome.</p></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 1 1 4 2.8c-.6.4-1 1-1 1.7v.5"/><circle cx="12" cy="17.5" r="0.6" fill="currentColor"/></svg><h2>Guess, then check</h2></div>
+  <p class="section-note">Tap a card to hear it and guess the tone before revealing the answer — this is the actual practice method, not the reference tables above.</p>
+  <div class="quiz-grid" id="quiz-tones"></div>
+
+  <div class="divider"><div class="dots"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div></div>
+  <div class="section-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><h2>How to drill this</h2></div>
+  <ol class="steps">
+    <li>Cover the class column in the two tables above and name each letter's class from memory — anything you can't place is low class by default.</li>
+    <li>Work through the guess-then-check cards out loud, saying your answer before you tap to reveal it.</li>
+    <li>Once a day, find one real Thai word you already know from earlier levels and work out its tone from the spelling before checking it against how you've been saying it.</li>
+  </ol>
+  <p class="panel-footer">อ่านออกก็ไปได้ไกล — if you can read it, you can go far</p>
 </div>
 </section>
 
@@ -943,6 +1008,26 @@ function renderDialogue(targetId, lines){
   }).join('');
 }
 window.renderDialogue = renderDialogue;
+
+function renderQuiz(targetId, items){
+  const el = document.getElementById(targetId);
+  el.innerHTML = items.map(it=>{
+    const [thai, translit, tone, rule, bonus] = it;
+    const safe = thai.replace(/'/g,"\\'");
+    const bonusHtml = bonus ? `<div class="qbonus">${bonus}</div>` : '';
+    return `<div class="qcard" onclick="this.classList.toggle('revealed')">
+      <div class="qprompt">${thai} <button class="play-btn" onclick="event.stopPropagation(); speak('${safe}', this)" aria-label="Play audio" title="Play (device text-to-speech)">🔊</button></div>
+      <div class="qhint">tap to reveal</div>
+      <div class="qanswer">
+        <div class="qtone">${tone}</div>
+        <div class="qtranslit">${colorTranslit(translit)}</div>
+        <div class="qrule">${rule}</div>
+        ${bonusHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+window.renderQuiz = renderQuiz;
 
 function renderRows(targetId, rows, cols){
   const tbody = document.getElementById(targetId);
@@ -1092,6 +1177,26 @@ renderDialogue('dlg-friend', [
   ['left','Friend A','ยังเลย หิวมาก','yang loei, hǐu mâak','Not yet, really hungry'],
   ['right','Friend B','ไปกินด้วยกันมั้ย','bpai gin dûai-gan mái','Want to go eat together?'],
   ['left','Friend A','เอาสิ ไปกันเลย','ao sì, bpai gan loei','Sure, let’s go']
+]);
+
+/* ---- Level 16 ---- */
+renderRows('tbl-midclass', [["ก","gor gai — g","mid class"],["จ","jor jaan — j","mid class"],["ด","dor dèk — d","mid class"],["ต","dtor tao — dt","mid class"],["บ","bor bai-mai — b","mid class"],["ป","bpor bplaa — bp","mid class"],["อ","or àang — vowel carrier","mid class"],["ฎ","dor chá-daa — d (rare)","mid class"],["ฏ","dtor bpà-dtàk — dt (rare)","mid class"]], 'Class');
+renderRows('tbl-highclass', [["ข","khor khai — kh","high class"],["ฉ","chor chìng — ch","high class"],["ฐ","thor thǎan — th","high class"],["ถ","thor thǔng — th","high class"],["ผ","phor phǔeng — ph","high class"],["ฝ","for fǎa — f","high class"],["ศ","sor sà-lǎa — s","high class"],["ษ","sor rêu-sǐi — s","high class"],["ส","sor sǔea — s","high class"],["ห","hor hìip — h","high class"],["ฃ","khor khùat — k (obsolete, you'll basically never see it)","high class"]], 'Class');
+renderRows('tbl-markrule', [["จ่าย","jàai","mid (จ) + mài-èk → low tone — “pay,” from Level 8"],["ไม่","mâi","low (ม) + mài-èk → falling tone — the “not” you've used everywhere"],["ไข่","khài","high (ข) + mài-èk → low tone — “egg,” same pattern as จ่าย"],["ต้อง","dtâwng","mid (ต) + mái-tho → falling tone — the “must” marker from Level 10"],["แล้ว","láew","low (ล) + mái-tho → high tone — the “already” marker from Levels 9–11"],["ให้","hâi","high (ห) + mái-tho → falling tone — the “give” verb from Level 10"]], 'Rule');
+renderRows('tbl-livedead', [["กิน","gin","mid (ก) + live syllable → mid tone — “eat,” from Level 10"],["ขอ","kǎw","high (ข) + live syllable → rising tone — the “may I have” template from Level 0"],["คน","kon","low (ค) + live syllable → mid tone — “person,” the classifier from Level 12"],["เจ็ด","jèt","mid (จ) + dead syllable → low tone — “seven,” from Level 0"],["หก","hòk","high (ห) + dead syllable → low tone — “six,” from Level 0"],["รัก","rák","low (ร) + dead + short vowel → high tone — the “-rák” in nâa-rák, Level 3"],["มาก","mâak","low (ม) + dead + long vowel → falling tone — “very/much,” used constantly"]], 'Rule');
+renderQuiz('quiz-tones', [
+  ["ปา","bpaa","mid tone","mid + no mark + live"],
+  ["ฝา","fǎa","rising tone","high + no mark + live"],
+  ["นา","naa","mid tone","low + no mark + live"],
+  ["ป่า","bpàa","low tone","mid + mài-èk","(means “forest”)"],
+  ["ฝ่า","fàa","low tone","high + mài-èk"],
+  ["น่า","nâa","falling tone","low + mài-èk"],
+  ["ป้า","bpâa","falling tone","mid + mái-tho","(means “aunt”)"],
+  ["ฝ้า","fâa","falling tone","high + mái-tho"],
+  ["น้า","náa","high tone","low + mái-tho","(means “aunt/uncle”)"],
+  ["ปาก","bpàak","low tone","mid + dead syllable","(means “mouth” — Level 4)"],
+  ["ฝาก","fàak","low tone","high + dead syllable","(means “deposit” — Level 6)"],
+  ["ลาก","lâak","falling tone","low + dead + long vowel","(means “drag/pull”)"]
 ]);
 
 /* ---- Nav wiring ---- */
